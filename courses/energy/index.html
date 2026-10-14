@@ -1,0 +1,1828 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>让双重预防机制运行起来 · 基于能量致害防控的风险管控实战课</title>
+  <meta name="description" content="基于能量致害防控的风险管控实战课，帮助企业让双重预防机制真正运行起来：用能量致害模型看懂事故链条，从机制运行机理、全员辨识评估到策划管理手段，让风险辨识和管控措施真正落地。">
+  <style>
+    :root {
+      --bg: #f7f5fa;
+      --paper: #ffffff;
+      --ink: #2c2438;
+      --muted: #6d6280;
+      --line: #e2dcec;
+      --violet: #5a3d8f;
+      --violet-dark: #3d2863;
+      --violet-soft: #ede8f6;
+      --purple: #7a5bb8;
+      --purple-soft: #f0eafb;
+      --orange: #e7802f;
+      --orange-soft: #fff1e4;
+      --shadow: 0 22px 60px rgba(61, 40, 99, .12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.72;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(226, 220, 236, .8);
+      background: rgba(247, 245, 250, .92);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: conic-gradient(from 35deg, var(--violet), var(--purple), var(--orange), var(--violet));
+      box-shadow: inset 0 0 0 6px rgba(255, 255, 255, .7);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-cta,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-weight: 700;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .nav-cta,
+    .btn-primary {
+      color: #fff;
+      background: var(--violet);
+      box-shadow: 0 12px 28px rgba(90, 61, 143, .22);
+    }
+
+    .btn-secondary {
+      color: var(--violet-dark);
+      background: rgba(255, 255, 255, .86);
+      border-color: var(--line);
+    }
+
+    .nav-cta:hover,
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(61, 40, 99, .18);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      overflow: hidden;
+      color: #fff;
+      background: #2f2052;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(28, 18, 50, .94) 0%, rgba(28, 18, 50, .82) 46%, rgba(28, 18, 50, .42) 100%),
+        url("assets/slide-model.jpg") center right / cover no-repeat;
+      transform: scale(1.02);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 120px;
+      background: linear-gradient(180deg, rgba(247, 245, 250, 0), var(--bg));
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1160px, calc(100% - 40px));
+      min-height: 760px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, .72fr);
+      align-items: center;
+      gap: 54px;
+      padding: 96px 0 132px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: #e5ddf5;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 3px;
+      background: var(--purple);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(38px, 6.4vw, 78px);
+      line-height: 1.06;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 720px;
+      margin-top: 26px;
+      color: rgba(255, 255, 255, .88);
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.58;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 44px;
+      max-width: 680px;
+    }
+
+    .proof-item {
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .proof-num {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .proof-label {
+      display: block;
+      margin-top: 9px;
+      color: rgba(255, 255, 255, .72);
+      font-size: 13px;
+    }
+
+    .hero-visual {
+      align-self: end;
+    }
+
+    .slide-stack {
+      position: relative;
+      min-height: 430px;
+    }
+
+    .slide-card {
+      position: absolute;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 26px 80px rgba(0, 0, 0, .26);
+      border: 1px solid rgba(255, 255, 255, .36);
+    }
+
+    .slide-card.primary {
+      inset: 54px 0 auto 0;
+      z-index: 3;
+    }
+
+    .slide-card.back-one {
+      width: 88%;
+      right: 22px;
+      top: 0;
+      z-index: 2;
+      opacity: .86;
+      transform: rotate(3deg);
+    }
+
+    .slide-card.back-two {
+      width: 78%;
+      left: 6px;
+      top: 112px;
+      z-index: 1;
+      opacity: .72;
+      transform: rotate(-4deg);
+    }
+
+    .section {
+      padding: 96px 0;
+    }
+
+    .section.tight {
+      padding: 72px 0;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-head {
+      max-width: 850px;
+      margin-bottom: 42px;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--violet);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .label::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.14;
+      letter-spacing: 0;
+    }
+
+    .section-desc {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 820px;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .pain-card,
+    .method-card,
+    .feature,
+    .deliverable,
+    .fit-card,
+    .agenda-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(61, 40, 99, .06);
+    }
+
+    .pain-card {
+      min-height: 210px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .pain-index {
+      color: var(--orange);
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .pain-card h3 {
+      margin-top: 18px;
+      font-size: 21px;
+      line-height: 1.32;
+    }
+
+    .pain-card p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .diagnosis {
+      margin-top: 26px;
+      padding: 28px;
+      border-left: 6px solid var(--violet);
+      border-radius: var(--radius);
+      background: var(--violet-soft);
+      color: var(--violet-dark);
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .existence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 34px 0 28px;
+    }
+
+    .existence-card {
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(61, 40, 99, .06);
+    }
+
+    .existence-card small {
+      display: inline-flex;
+      margin-bottom: 14px;
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .existence-card h3 {
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    .existence-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .formula-band {
+      background: #3d2863;
+      color: #fff;
+      padding: 90px 0;
+    }
+
+    .formula {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+      font-size: clamp(24px, 3.6vw, 46px);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .formula .chip {
+      padding: 10px 18px 12px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
+    }
+
+    .formula .operator {
+      color: var(--purple);
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 42px;
+    }
+
+    .method-card {
+      padding: 26px;
+      color: var(--ink);
+    }
+
+    .method-card h3 {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .method-card h3 span {
+      color: var(--violet);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .method-card p {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .method-card strong {
+      display: block;
+      margin-top: 22px;
+      color: var(--violet-dark);
+      font-size: 15px;
+    }
+
+    .learning-chain {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .chain-step {
+      position: relative;
+      min-height: 150px;
+      padding: 20px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .chain-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      width: 14px;
+      height: 2px;
+      background: var(--violet);
+    }
+
+    .chain-step b {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--violet);
+      font-size: 13px;
+    }
+
+    .chain-step h3 {
+      margin-top: 16px;
+      font-size: 18px;
+      line-height: 1.28;
+    }
+
+    .chain-step p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .belief-band {
+      padding: 46px;
+      border-radius: var(--radius);
+      background: #2f2052;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .belief-band p {
+      max-width: 980px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 19px;
+    }
+
+    .belief-band strong {
+      display: block;
+      margin-top: 18px;
+      color: #fff;
+      font-size: 24px;
+      line-height: 1.45;
+    }
+
+    .module-lab {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .module-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(61, 40, 99, .06);
+      overflow: hidden;
+    }
+
+    .module-top {
+      padding: 22px 24px;
+      color: #fff;
+      background: var(--violet);
+    }
+
+    .module-top small {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, .7);
+      font-weight: 800;
+    }
+
+    .module-top h3 {
+      font-size: 25px;
+      line-height: 1.25;
+    }
+
+    .module-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .module-block {
+      padding: 22px 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .module-block:nth-child(odd) {
+      border-right: 1px solid var(--line);
+    }
+
+    .module-block h4 {
+      margin: 0 0 10px;
+      color: var(--violet-dark);
+      font-size: 15px;
+    }
+
+    .module-block p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .activity-wall {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .activity-card {
+      min-height: 230px;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(61, 40, 99, .06);
+    }
+
+    .activity-card small {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--violet-dark);
+      background: var(--violet-soft);
+      font-weight: 900;
+    }
+
+    .activity-card h3 {
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    .activity-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .experience {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .flow-step b {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--purple);
+      font-size: 15px;
+    }
+
+    .flow-step h3 {
+      font-size: 20px;
+      line-height: 1.28;
+    }
+
+    .flow-step p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .visual-panel {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .visual-panel figcaption {
+      padding: 18px 20px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .agenda {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .agenda-item {
+      min-height: 240px;
+      padding: 24px;
+    }
+
+    .agenda-item small {
+      color: var(--violet);
+      font-weight: 900;
+    }
+
+    .agenda-item h3 {
+      margin-top: 12px;
+      font-size: 24px;
+      line-height: 1.28;
+    }
+
+    .agenda-item p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      padding: 24px;
+      min-height: 250px;
+    }
+
+    .feature h3 {
+      font-size: 21px;
+      line-height: 1.32;
+    }
+
+    .feature p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature .tag {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--purple);
+      background: var(--purple-soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .proof-strip {
+      margin-top: 44px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .proof-strip figure {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .proof-strip figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .deliverables {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .gain-group {
+      margin-top: 34px;
+    }
+
+    .gain-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--violet-dark);
+    }
+
+    .gain-title::before {
+      content: "";
+      width: 5px;
+      height: 20px;
+      border-radius: 3px;
+      background: var(--orange);
+    }
+
+    .deliverable {
+      padding: 24px;
+    }
+
+    .deliverable h3 {
+      font-size: 22px;
+    }
+
+    .deliverable p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .fit-section {
+      background: #efeaf6;
+    }
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .fit-card {
+      padding: 20px;
+      background: rgba(255, 255, 255, .72);
+      min-height: 170px;
+    }
+
+    .fit-card h3 {
+      color: var(--violet-dark);
+      font-size: 19px;
+      line-height: 1.32;
+    }
+
+    .fit-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta {
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(28, 18, 50, .94), rgba(70, 45, 110, .88)),
+        url("assets/slide-4step.jpg") center right / cover no-repeat;
+    }
+
+    .cta-box {
+      width: min(920px, 100%);
+      padding: 86px 0;
+    }
+
+    .cta h2 {
+      max-width: 820px;
+    }
+
+    .cta p {
+      margin-top: 20px;
+      max-width: 760px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 19px;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .footer {
+      padding: 28px 0 42px;
+      color: var(--muted);
+      font-size: 14px;
+      background: #1c1232;
+    }
+
+    .footer .container {
+      color: rgba(255, 255, 255, .62);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    @media (max-width: 1020px) {
+      .hero-inner,
+      .experience {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding-bottom: 110px;
+      }
+
+      .hero-visual {
+        max-width: 560px;
+      }
+
+      .pain-grid,
+      .existence-grid,
+      .feature-grid,
+      .fit-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .method-grid,
+      .learning-chain,
+      .module-lab,
+      .activity-wall,
+      .agenda,
+      .deliverables,
+      .proof-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .chain-step:not(:last-child)::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner,
+      .container,
+      .hero-inner {
+        width: min(100% - 28px, 1160px);
+      }
+
+      .nav-inner {
+        min-height: 58px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .brand span {
+        font-size: 14px;
+      }
+
+      .hero-inner {
+        padding: 72px 0 86px;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(28, 18, 50, .95) 0%, rgba(28, 18, 50, .9) 58%, rgba(28, 18, 50, .72) 100%),
+          url("assets/slide-model.jpg") center / cover no-repeat;
+      }
+
+      .hero-proof,
+      .pain-grid,
+      .existence-grid,
+      .method-grid,
+      .learning-chain,
+      .module-lab,
+      .activity-wall,
+      .agenda,
+      .feature-grid,
+      .proof-strip,
+      .deliverables,
+      .fit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .module-body {
+        grid-template-columns: 1fr;
+      }
+
+      .module-block:nth-child(odd) {
+        border-right: none;
+      }
+
+      .belief-band {
+        padding: 28px 22px;
+      }
+
+      .belief-band strong {
+        font-size: 20px;
+      }
+
+      .slide-stack {
+        min-height: 310px;
+      }
+
+      .section {
+        padding: 68px 0;
+      }
+
+      .section.tight {
+        padding: 54px 0;
+      }
+
+      .diagnosis {
+        padding: 22px;
+        font-size: 19px;
+      }
+
+      .formula {
+        font-size: 26px;
+      }
+
+      .footer .container {
+        flex-direction: column;
+      }
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 34px;
+      padding: 18px 22px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .22);
+      max-width: 480px;
+    }
+
+    .contact-card img {
+      width: 112px;
+      height: 112px;
+      border-radius: 10px;
+      background: #fff;
+      padding: 6px;
+      flex: 0 0 auto;
+    }
+
+    .contact-card .contact-text strong {
+      display: block;
+      font-size: 19px;
+      color: #fff;
+    }
+
+    .contact-card .contact-text span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .footer-main {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-qr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .footer-qr img {
+      width: 104px;
+      height: 104px;
+      border-radius: 10px;
+      background: #fff;
+      padding: 6px;
+    }
+
+    .footer-qr span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .positioning-band {
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .positioning-band h2 {
+      margin-top: 14px;
+      font-size: clamp(24px, 3.4vw, 36px);
+      line-height: 1.3;
+      color: var(--violet-dark);
+    }
+
+    .positioning-desc {
+      margin-top: 18px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .positioning-desc b {
+      color: var(--violet);
+    }
+
+    .positioning-compare {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .compare-col {
+      flex: 1 1 280px;
+      max-width: 380px;
+      padding: 22px 24px;
+      border-radius: var(--radius);
+      text-align: left;
+    }
+
+    .compare-col strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .compare-col span {
+      display: block;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .compare-old {
+      background: #efeaf4;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .compare-new {
+      background: var(--violet-soft);
+      border: 1px solid #d3c5ea;
+      color: var(--violet-dark);
+    }
+
+    .compare-new strong {
+      color: var(--violet);
+    }
+
+    .compare-arrow {
+      align-self: center;
+      font-size: 28px;
+      color: var(--orange);
+      font-weight: 800;
+    }
+
+    .who-needs {
+      margin-top: 46px;
+    }
+
+    .who-head {
+      margin-bottom: 24px;
+    }
+
+    .who-head h3 {
+      font-size: 22px;
+      line-height: 1.35;
+      color: var(--violet-dark);
+    }
+
+    .who-head p {
+      margin-top: 8px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .formula-note {
+      max-width: 900px;
+      margin: 26px auto 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: rgba(255, 255, 255, .82);
+      text-align: left;
+    }
+
+    @media (max-width: 720px) {
+      .positioning-compare {
+        flex-direction: column;
+        align-items: center;
+      }
+      .compare-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="页面导航">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>基于能量致害防控的风险管控</span>
+      </a>
+      <div class="nav-links" aria-label="页面章节">
+        <a href="#pain">为什么需要</a>
+        <a href="#logic">课程逻辑</a>
+        <a href="#course">课程框架</a>
+        <a href="#experience">课堂怎么练</a>
+        <a href="#outcome">课程成果</a>
+      </div>
+      <a class="nav-cta" href="#contact">预约沟通</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">基于能量致害防控 · 风险管控落地实践课</div>
+        <h1>让双重预防机制运行起来</h1>
+        <p class="hero-lead">近 10 年事故调查中，被定性为「风险辨识不足、管控措施未落实」的事故占比超过 45%。这门课面向 EHS 与安全管理者，用一套统一的底层逻辑——能量致害模型，把双重预防机制讲成能落地、能运转的体系：先看清机制为什么运行不起来，再按辨识单元、危害能量、危险情景、直接措施一步步做对，最后用管理手段把风险真正管住。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#logic">查看课程逻辑</a>
+          <a class="btn btn-secondary" href="#contact">预约课程前沟通</a>
+        </div>
+        <div class="hero-proof" aria-label="课程交付数据">
+          <div class="proof-item">
+            <span class="proof-num">4大模块</span>
+            <span class="proof-label">运行机理 → 全员辨识 → 管理手段 → 总结</span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num">1套</span>
+            <span class="proof-label">能量致害统一底层逻辑</span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num">1套</span>
+            <span class="proof-label">可带走的辨识与管控工具</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="课程课件预览">
+        <div class="slide-stack">
+          <div class="slide-card back-two">
+            <img src="assets/slide-summary.jpg" alt="课程小结课件截图">
+          </div>
+          <div class="slide-card back-one">
+            <img src="assets/slide-4step.jpg" alt="找想分析制定四步课件截图">
+          </div>
+          <div class="slide-card primary">
+            <img src="assets/slide-model.jpg" alt="能量致害模型课件截图">
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section tight">
+      <div class="container">
+        <div class="positioning-band">
+          <div class="label">课程定位</div>
+          <h2>不是「再讲一遍双重预防机制」，而是「讲清机理 · 练对辨识 · 策划手段」</h2>
+          <p class="positioning-desc">很多企业的双重预防机制停在表格里：每年搞一次，现场觉得浪费时间；直线部门不参与，输出结果业务部门用不上；风险识别了、措施制定了，却和 EHS 体系、业务部门的日常工作脱钩。这门课先<b>讲清机制为什么运行不起来</b>，再给一套统一的底层逻辑——<b>能量致害模型</b>（危害能量 → 能量失控 → 能量致害），然后<b>全员参与辨识与评估</b>、<b>策划管理手段</b>，让风险辨识真正转化成现场管控动作。</p>
+          <div class="positioning-compare">
+            <div class="compare-col compare-old">
+              <strong>传统双重预防机制</strong>
+              <span>每年搞一次 → 停在表格 → 现场觉得浪费时间<br>直线部门不参与，输出结果业务用不上</span>
+            </div>
+            <div class="compare-arrow">→</div>
+            <div class="compare-col compare-new">
+              <strong>这门落地课</strong>
+              <span>讲清机理 → 统一逻辑 → 全员辨识 → 策划手段<br>风险辨识真正转化成现场管控动作</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pain">
+        <div class="container">
+          <div class="section-head">
+            <div class="label">为什么需要这门课</div>
+            <h2>双重预防机制普遍「建而不转」——这一课，补上让机制真正运行起来的方法。</h2>
+            <p class="section-desc">外部专家检查时，很多发现项都不在公司日常管控内；公司 EHS 检查时，很多隐患也不在部门日常管控内。近 10 年事故调查中，被定性为「风险辨识不足、管控措施未落实」的事故占比超过 45%。问题不在机制本身，而在机制没有真正运行起来——策划不力、概念模糊、评估不准、措施无效、成果未用。这门课不是再加一层表格，而是给一套让机制运转的统一方法。</p>
+          </div>
+
+          <div class="existence-grid" aria-label="企业为什么需要这门课">
+            <article class="existence-card">
+              <small>01 事故大头</small>
+              <h3>超 45% 事故源于风险辨识不足、措施未落实</h3>
+              <p>近 10 年事故调查中，被定性为「风险辨识不足、管控措施未落实」的事故占比超 45%。风险辨识做不对，事故拦截就无从谈起。</p>
+            </article>
+            <article class="existence-card">
+              <small>02 机制空转</small>
+              <h3>机制停在表格里，现场觉得浪费时间</h3>
+              <p>每年搞一次，直线部门不参与，输出结果业务用不上——风险辨识和日常管控严重脱钩。</p>
+            </article>
+            <article class="existence-card">
+              <small>03 概念模糊</small>
+              <h3>辨识单元、危险源、危害能量概念不清</h3>
+              <p>「叉车是危险源？叉车侧翻是危险源？未系安全带是危险源？」——概念不清，辨识就五花八门。</p>
+            </article>
+            <article class="existence-card">
+              <small>04 措施无效</small>
+              <h3>措施太虚、太多、不合规</h3>
+              <p>「加强培训、提升意识、定期检查」——措施虚、措施多、无关键，管得多等于没得管。</p>
+            </article>
+          </div>
+
+          <div class="who-needs" aria-label="个人为什么需要这门课">
+            <div class="who-head">
+              <h3>个人为什么需要 · 五个真实卡点</h3>
+              <p>这些不是「机制不好用」的问题，而是 EHS 与安全管理者每天都在面对的落地难题。</p>
+            </div>
+            <div class="pain-grid">
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">01</span>
+                  <h3>无法说服领导投资源</h3>
+                </div>
+                <p>机制建设看不到价值，拿不出说服领导的理由，资源迟迟不到位。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">02</span>
+                  <h3>业务部门不配合</h3>
+                </div>
+                <p>直线部门不参与，EHS 独自实施，输出结果业务部门用不上。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">03</span>
+                  <h3>不会系统辨识风险</h3>
+                </div>
+                <p>辨识单元拆分无原则、危险源危害因素概念模糊，现场晕头转向。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">04</span>
+                  <h3>风险评估不准</h3>
+                </div>
+                <p>同情景风险分级不一，不区分固有风险和现实风险，管控层级定错。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">05</span>
+                  <h3>措施与日常脱钩</h3>
+                </div>
+                <p>风险识别了、措施制定了，却没转化为规程、培训、演练，成果停在表格。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="diagnosis">所以，这门课不是在再讲一遍双重预防机制，而是在补「让机制运行起来」的关键一环：先讲清机理，再用统一的能量致害逻辑把辨识做对，最后把风险管控措施真正落到直线部门的日常工作里。</div>
+        </div>
+    </section>
+
+    <section class="formula-band" id="logic">
+      <div class="container">
+        <div class="section-head">
+          <div class="label" style="color:#e5ddf5">课程核心逻辑</div>
+          <h2>安全异常事件 = 危害能量 + 能量失控 + 能量致害</h2>
+          <p class="section-desc" style="color:rgba(255,255,255,.78)">用一套统一的底层逻辑，看懂每一起事故的链条，再逐环设防：预防失控诱因、能量不失控、失控后恢复、失控不致害、预防致害诱因、减轻致害后果。</p>
+        </div>
+
+        <div class="formula" aria-label="安全异常事件等于危害能量加能量失控加能量致害">
+          <span>安全异常事件</span>
+          <span class="operator">=</span>
+          <span class="chip">危害能量</span>
+          <span class="operator">+</span>
+          <span class="chip">能量失控</span>
+          <span class="operator">+</span>
+          <span class="chip">能量致害</span>
+        </div>
+
+        <p class="formula-note">「能量致害模型」是整套机制的统一语言：危害能量（物理、化学、生物、辐射）是事故的根源；能量失控（主动失控 + 被动失控）是脱离了原始设计的能量状态；能量致害是失控的能量接触了保护目标。围绕这条链，可以设「六面墙」：预防失控诱因、能量不失控、失控后恢复、失控不致害、预防致害诱因、减轻致害后果。看懂这条链，风险辨识就有统一标准，措施制定就有针对性，不再各说各话。</p>
+
+        <div class="method-grid">
+          <article class="method-card">
+            <h3>机制机理 <span>为什么转不起来</span></h3>
+            <p>看清双重预防机制建而不转的根因：策划不力、概念模糊、评估不准、措施无效、成果未用。</p>
+            <strong>产出：机制运行机理认知</strong>
+          </article>
+          <article class="method-card">
+            <h3>全员辨识 <span>怎么辨识对</span></h3>
+            <p>按原则划分辨识单元、识别危害能量、分析失控与致害情景，用能量致害模型统一标准。</p>
+            <strong>产出：风险辨识清单与标准</strong>
+          </article>
+          <article class="method-card">
+            <h3>管理手段 <span>怎么管住</span></h3>
+            <p>制度、规程、警示、培训、检查、应急六大管理手段，把风险与直接措施连起来。</p>
+            <strong>产出：管理手段策划表</strong>
+          </article>
+          <article class="method-card">
+            <h3>落地运行 <span>怎么持续转</span></h3>
+            <p>把辨识成果转化为规程、培训、演练、检查，让机制真正进入直线部门日常工作。</p>
+            <strong>产出：成果转化与落地清单</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="course">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课程框架</div>
+          <h2>从运行机理到管理手段，一条完整的机制落地路径</h2>
+          <p class="section-desc">课程按四大模块推进：先讲清机制运行机理，再全员参与辨识与评估，然后策划管理手段，最后课程总结把方法带回家。</p>
+        </div>
+
+        <div class="module-lab">
+          <article class="module-card">
+            <div class="module-top">
+              <small>模块 1 · 机制运行机理</small>
+              <h3>看懂机制为什么转不起来</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>双重预防机制建而不转，风险辨识与日常管控严重脱钩。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>创建与应用的错误案例；风险辨识常见问题（成果未利用/策划不力/概念模糊/评估不准/措施无效）。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>练习：安全异常事件发生的「链条」，用能量致害模型拆解。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>对机制运行机理与能量致害模型的完整认知。</p>
+                </div>
+              </div>
+          </article>
+
+          <article class="module-card">
+            <div class="module-top">
+              <small>模块 2 · 全员参与辨识与评估</small>
+              <h3>按统一原则做对风险辨识</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>辨识单元拆分无原则、危害能量概念模糊、同情景风险分级不一。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>辨识单元划分原则（运营功能区 + 全生命周期象限）；危害能量分类（物理/化学/生物/辐射）；失控与致害情景描述。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>按原则划分辨识单元、识别危害能量、分析危险情景。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>风险辨识清单、辨识单元与危害能量标准。</p>
+                </div>
+              </div>
+          </article>
+
+          <article class="module-card">
+            <div class="module-top">
+              <small>模块 3 · 策划管理手段</small>
+              <h3>用管理手段把风险管住</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>措施太虚、太多、不合规，风险识别了却管不住。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>六大管理手段：制度、规程、警示、培训、检查、应急；措施编制与检查清单。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>针对真实风险点，策划对应的管理手段与直接措施。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>管理手段策划表、制度/规程/检查清单模板。</p>
+                </div>
+              </div>
+          </article>
+
+          <article class="module-card">
+            <div class="module-top">
+              <small>模块 4 · 课程总结</small>
+              <h3>把方法带回家，真正落地</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>学完不会用，辨识成果还是停在表格里。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>「找危害能量 → 想危险情景 → 分析场景诱因 → 制定直接措施」四步法；成果转化路径。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>课程回顾：前后左右找到搭档，讲述机制运行机理知识点。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>四步法工具、成果转化与落地清单。</p>
+                </div>
+              </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container">
+        <div class="belief-band">
+          <p>这门课不是在再讲一遍双重预防机制，而是在讲怎么让机制真正运行起来——用一套统一的能量致害逻辑，把辨识做对、把措施落地。</p>
+          <strong>找危害能量 → 想危险情景 → 分析场景诱因 → 制定直接措施——把风险辨识变成直线部门每天在做的事。</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课堂怎么练</div>
+          <h2>不是被动听课，而是拆链、辨识、设计、带走工具</h2>
+          <p class="section-desc">课程围绕能量致害模型设计练习，用链条拆解、分组讨论、现场辨识，让学员把本企业的真实风险放进课堂。</p>
+        </div>
+
+        <div class="learning-chain" aria-label="课程教学设计流程">
+          <div class="chain-step">
+            <b>1</b>
+            <h3>拆链条</h3>
+            <p>练习安全异常事件发生的「链条」。</p>
+          </div>
+          <div class="chain-step">
+            <b>2</b>
+            <h3>辨概念</h3>
+            <p>分清辨识单元、危险源、危害能量。</p>
+          </div>
+          <div class="chain-step">
+            <b>3</b>
+            <h3>找能量</h3>
+            <p>按原则识别危害能量与失控情景。</p>
+          </div>
+          <div class="chain-step">
+            <b>4</b>
+            <h3>析诱因</h3>
+            <p>分析失控诱因与致害诱因。</p>
+          </div>
+          <div class="chain-step">
+            <b>5</b>
+            <h3>定措施</h3>
+            <p>制定直接措施与管理手段。</p>
+          </div>
+          <div class="chain-step">
+            <b>6</b>
+            <h3>带走工具</h3>
+            <p>带着辨识清单与管控工具离课。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课堂活动证据墙</div>
+          <h2>用活动证明：学员是在拆链、辨识、设计，不是在被动听课</h2>
+        </div>
+        <div class="activity-wall">
+          <article class="activity-card">
+            <small>拆链</small>
+            <h3>安全异常事件链条练习</h3>
+            <p>用能量致害模型，把真实事故拆成危害能量 → 失控 → 致害三段。</p>
+          </article>
+          <article class="activity-card">
+            <small>辨析</small>
+            <h3>危险源概念辨析</h3>
+            <p>「叉车是危险源？侧翻是危险源？」——厘清概念与原则。</p>
+          </article>
+          <article class="activity-card">
+            <small>辨识</small>
+            <h3>辨识单元划分演练</h3>
+            <p>按「运营功能区 + 全生命周期」象限，划分自家辨识单元。</p>
+          </article>
+          <article class="activity-card">
+            <small>分析</small>
+            <h3>危险情景原因分析</h3>
+            <p>针对风险点，分析失控诱因与致害诱因。</p>
+          </article>
+          <article class="activity-card">
+            <small>设计</small>
+            <h3>管理手段策划</h3>
+            <p>为真实风险点设计制度、规程、警示、培训、检查、应急。</p>
+          </article>
+          <article class="activity-card">
+            <small>落地</small>
+            <h3>课程回顾互讲</h3>
+            <p>石头剪刀布找搭档，把机制运行机理讲给别人听。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="outcome">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课程亮点</div>
+          <h2>它和传统双重预防机制培训的区别，在于把「做表格」变成「让机制转起来」</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="tag">统一逻辑</span>
+            <h3>一套能量致害底层模型</h3>
+            <p>看懂每起事故的链条，辨识有统一标准，不再各说各话。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">看清根因</span>
+            <h3>先讲清机制为什么空转</h3>
+            <p>策划不力、概念模糊、评估不准、措施无效、成果未用。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">全员参与</span>
+            <h3>直线部门真正参与</h3>
+            <p>输出结果业务部门用得上，辨识不再是 EHS 独角戏。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">措施落地</span>
+            <h3>从表格到现场管控</h3>
+            <p>把辨识成果转化为规程、培训、演练、检查，进日常。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">工具带走</span>
+            <h3>不是带走 PPT，而是带走工具</h3>
+            <p>辨识清单、管理手段表、检查清单模板，回岗即用。</p>
+          </article>
+        </div>
+
+        <div class="proof-strip" aria-label="课程课件证据">
+          <figure>
+            <img src="assets/slide-model.jpg" alt="能量致害模型课件截图">
+            <figcaption>危害能量 → 失控 → 致害，六面墙防控。</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/slide-summary.jpg" alt="课程小结课件截图">
+            <figcaption>辨识单元 → 危害能量 → 固有风险分级。</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/slide-4step.jpg" alt="找想分析制定四步课件截图">
+            <figcaption>找能量 → 想情景 → 析诱因 → 定措施。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">学完之后，能得到什么</div>
+          <h2>培训结束，EHS 与安全管理者都多了一套让机制运行的落地能力</h2>
+        </div>
+
+        <div class="gain-group">
+          <div class="gain-title">个人侧收益</div>
+          <div class="deliverables">
+            <article class="deliverable">
+              <h3>说得清机制机理</h3>
+              <p>能从三个角度讲述为什么资源建设机制、机制如何建设，不再只会「照搬表格」。</p>
+            </article>
+            <article class="deliverable">
+              <h3>会按原则辨识</h3>
+              <p>能按原则划分辨识单元、识别不同危害能量、产生危险情景，标准统一。</p>
+            </article>
+            <article class="deliverable">
+              <h3>会策划管理手段</h3>
+              <p>能利用管理手段，把风险和直接措施连起来，措施不再是「加强培训」空话。</p>
+            </article>
+            <article class="deliverable">
+              <h3>能说服领导业务</h3>
+              <p>看清机制价值与根因，能说服领导投入资源、说服业务部门参与。</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="gain-group">
+          <div class="gain-title">企业侧收益</div>
+          <div class="deliverables">
+            <article class="deliverable">
+              <h3>机制真正运转</h3>
+              <p>双重预防机制从「建而不转」到「真正运行」，风险辨识进入日常管控。</p>
+            </article>
+            <article class="deliverable">
+              <h3>辨识标准统一</h3>
+              <p>用能量致害模型统一辨识语言，同情景风险分级不再五花八门。</p>
+            </article>
+            <article class="deliverable">
+              <h3>措施针对有效</h3>
+              <p>措施从「太虚太多」到「针对有效」，直接措施与管理手段落地。</p>
+            </article>
+            <article class="deliverable">
+              <h3>事故拦截前移</h3>
+              <p>针对超 45% 的「辨识不足、措施未落实」事故，从源头把风险管住。</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="gain-group">
+          <div class="gain-title">课程交付</div>
+          <div class="deliverables">
+            <article class="deliverable">
+              <h3>实操面授</h3>
+              <p>拆链条 + 概念辨析 + 辨识演练 + 手段策划 + 课程回顾，全程动手。</p>
+            </article>
+            <article class="deliverable">
+              <h3>带走辨识工具</h3>
+              <p>辨识单元清单、危害能量分类、管理手段策划表、检查清单模板。</p>
+            </article>
+            <article class="deliverable">
+              <h3>四步落地法</h3>
+              <p>找危害能量 → 想危险情景 → 分析诱因 → 制定直接措施。</p>
+            </article>
+            <article class="deliverable">
+              <h3>回岗落地清单</h3>
+              <p>把辨识成果转化为规程、培训、演练、检查，进入直线部门日常。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fit-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">适合谁</div>
+          <h2>适合让双重预防机制「建而不转」的企业</h2>
+        </div>
+        <div class="fit-grid">
+          <article class="fit-card">
+            <h3>EHS 管理人员</h3>
+            <p>双重预防机制建了但运行不起来，想让风险辨识真正落地。</p>
+          </article>
+          <article class="fit-card">
+            <h3>风险辨识牵头人</h3>
+            <p>负责组织风险辨识与评估，苦于标准不一、直线部门不参与。</p>
+          </article>
+          <article class="fit-card">
+            <h3>安全监督与厂务</h3>
+            <p>负责现场风险管控，希望措施不再停留在表格。</p>
+          </article>
+          <article class="fit-card">
+            <h3>机制刚建的化工/制造企业</h3>
+            <p>双重预防机制刚落地，想从一开始就按对的逻辑建。</p>
+          </article>
+          <article class="fit-card">
+            <h3>审核频繁被开项</h3>
+            <p>外部检查发现项总不在日常管控内，想补上管控盲区。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <h2>想知道这门课如何落到你们的风险辨识上？</h2>
+          <p>可以先用 30 分钟做一次课程前沟通：梳理你们当前最典型的风险辨识与管控问题，判断它断在辨识、评估还是措施，再决定课程如何定制。</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="#contact">预约课程前沟通</a>
+            <a class="btn btn-secondary" href="#course">查看课程框架</a>
+          </div>
+          <div class="contact-card">
+            <img src="assets/qr-wechat-personal.jpg" alt="曹猛微信二维码，扫码预约课程前沟通">
+            <div class="contact-text">
+              <strong>扫码加微信</strong>
+              <span>预约 30 分钟课程前沟通，把你们最典型的风险辨识问题聊清楚、定方案。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <span>让双重预防机制运行起来 · 基于能量致害防控的风险管控</span>
+        <span>讲清机理，统一逻辑，让风险辨识真正落地。</span>
+      </div>
+      <div class="footer-qr">
+        <img src="assets/qr-official-account.jpg" alt="EHS知行公众号二维码，扫码关注">
+        <span>扫码关注 EHS知行</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

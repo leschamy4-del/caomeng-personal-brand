@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>曹猛｜集团 EHS 顾问 · AI+EHS 实践者</title>
+<meta name="description" content="曹猛，集团 EHS 顾问、AI+EHS 实践者、「EHS 知行」主理人。书籍产品、课程产品、咨询产品，帮助企业把安全从靠人盯变成体系驱动。">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Dark Tech / Apple-Stripe
+   ═══════════════════════════════════════════ */
+:root{
+  --bg:#06080d;--bg-soft:#0a0e15;--card:#11151d;--card-hover:#151a24;
+  --border:#1e2e26;--border-soft:#1a1f28;
+  --ink:#fff;--ink-2:#e8ede9;--muted:#8a9e92;--muted-light:#aaa;--muted-dim:#666;
+  --blue:#8aa8ff;--blue-soft:rgba(138,168,255,.1);--blue-glow:rgba(138,168,255,.15);
+  --green:#0f7a40;--green-light:#1a9e55;--green-soft:rgba(15,122,64,.1);
+  --warm:#e07a2c;--warm-soft:rgba(224,122,44,.08);
+  --radius:24px;--radius-sm:16px;--radius-xs:10px;
+  --shadow:0 20px 60px rgba(0,0,0,.4);--shadow-sm:0 4px 20px rgba(0,0,0,.3);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+::selection{background:var(--blue);color:#fff}
+body::before{content:'';position:fixed;top:-20%;left:-10%;width:60%;height:60%;border-radius:50%;background:radial-gradient(circle,rgba(138,168,255,.06),transparent 70%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:50%;height:50%;border-radius:50%;background:radial-gradient(circle,rgba(15,122,64,.05),transparent 70%);pointer-events:none;z-index:0}
+.wrap{width:min(1160px,calc(100% - 48px));margin:0 auto;position:relative;z-index:1}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,8,13,.78);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);border-bottom:1px solid var(--border-soft)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;white-space:nowrap;flex-shrink:0}
+.brand-mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--green));box-shadow:0 2px 12px rgba(138,168,255,.3);position:relative;flex-shrink:0}
+.brand-mark::after{content:'';position:absolute;inset:6px;border-radius:4px;background:rgba(255,255,255,.15)}
+.tabs{display:flex;gap:2px;overflow-x:auto;flex:1;justify-content:flex-end;scrollbar-width:none;-ms-overflow-style:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;background:transparent;color:var(--muted-light);font-size:13.5px;font-weight:600;padding:8px 15px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:all .2s ease;font-family:var(--font)}
+.tab:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+.tab.on{color:var(--ink);background:rgba(138,168,255,.12);box-shadow:inset 0 0 0 1px rgba(138,168,255,.2)}
+
+/* SECTIONS */
+section{padding:90px 0;position:relative}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:var(--blue-soft);border:1px solid rgba(138,168,255,.15);padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.section-tag.green{color:var(--green-light);background:var(--green-soft);border-color:rgba(15,122,64,.2)}
+.section-tag.warm{color:var(--warm);background:var(--warm-soft);border-color:rgba(224,122,44,.15)}
+.section-title{font-size:clamp(30px,4.2vw,48px);line-height:1.1;letter-spacing:-.7px;font-weight:800;margin-bottom:14px}
+.gradient-text{background:linear-gradient(90deg,#fff 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.section-sub{font-size:clamp(15px,1.8vw,18px);color:var(--muted-light);max-width:660px;line-height:1.7;margin-bottom:40px}
+
+/* HERO */
+.hero{padding-top:160px;padding-bottom:100px;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--blue);background:var(--blue-soft);border:1px solid rgba(138,168,255,.15);padding:8px 20px;border-radius:999px;margin-bottom:28px}
+.hero-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);box-shadow:0 0 8px var(--green-light)}
+.hero h1{font-size:clamp(44px,8.5vw,80px);line-height:1.05;letter-spacing:-1.5px;font-weight:800;margin-bottom:22px}
+.hero h1 .accent{background:linear-gradient(135deg,#fff 0%,var(--blue) 50%,var(--green-light) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:clamp(17px,2.4vw,22px);color:var(--ink-2);max-width:640px;margin:0 auto 14px;font-weight:600;line-height:1.5}
+.hero .sub{font-size:15px;color:var(--muted);max-width:540px;margin:0 auto 36px;line-height:1.75}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;font-size:14.5px;font-weight:700;cursor:pointer;transition:all .2s ease;border:0;font-family:var(--font)}
+.btn-primary{background:#fff;color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,255,255,.15)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--blue);background:var(--blue-soft)}
+.btn-sm{padding:9px 20px;font-size:12.5px}
+.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:840px;margin:60px auto 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--card)}
+.hm{padding:24px 14px;text-align:center;border-right:1px solid var(--border-soft)}
+.hm:last-child{border-right:0}
+.hm b{display:block;font-size:clamp(24px,3.2vw,34px);background:linear-gradient(135deg,#fff,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;font-weight:800;letter-spacing:-.4px}
+.hm span{display:block;font-size:12px;color:var(--muted);margin-top:7px;font-weight:500}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px}
+.about-card{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--radius);padding:28px;transition:all .25s ease}
+.about-card:hover{border-color:rgba(138,168,255,.2);background:var(--card-hover)}
+.about-card h3{font-size:17px;margin-bottom:14px;font-weight:700;display:flex;align-items:center;gap:10px}
+.about-card h3 .icon{font-size:19px}
+.about-card ul{list-style:none;padding:0}
+.about-card li{padding:7px 0;color:var(--muted-light);font-size:14px;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.04)}
+.about-card li:last-child{border-bottom:0}
+.about-card li b{color:var(--ink);font-weight:600}
+.timeline-wrap{margin-top:8px}
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--blue),var(--green),transparent)}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-29px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--blue);box-shadow:0 0 0 4px rgba(138,168,255,.1)}
+.tl-year{font-size:12.5px;font-weight:800;color:var(--blue);letter-spacing:.05em;margin-bottom:3px}
+.tl-role{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.tl-company{font-size:13.5px;color:var(--muted-light)}
+.tl-desc{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.6}
+
+/* CONTACT (compact, merged into About) */
+.contact-zone{background:linear-gradient(160deg,rgba(138,168,255,.05),rgba(15,122,64,.03));border:1px solid rgba(138,168,255,.12);border-radius:var(--radius-sm);padding:16px 18px;text-align:center;margin-top:8px}
+.coop-types{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:12px}
+.coop-tag{padding:3px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--border-soft);font-size:12px;font-weight:600;color:var(--muted-light)}
+.qr-pair{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.qr-item{text-align:center}
+.qr-img{width:96px;height:96px;border-radius:12px;background:#fff;padding:8px;margin:0 auto;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.qr-img img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+.qr-label{display:block;margin-top:5px;font-weight:700;font-size:12px;color:var(--ink)}
+.qr-hint{font-size:10.5px;color:var(--muted);margin-top:0}
+.contact-info{display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+.ci-item{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--muted-light)}
+.ci-item .ci-icon{font-size:15px}
+.ci-item a{color:var(--blue);transition:color .2s}
+.ci-item a:hover{color:var(--ink)}
+.clients{margin-bottom:10px}
+.clients-label{font-size:11px;font-weight:700;color:var(--muted-dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px;text-align:center}
+.clients-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.client-tag{padding:3px 12px;border-radius:999px;background:var(--card);border:1px solid var(--border-soft);font-size:12px;font-weight:600;color:var(--muted-light)}
+
+/* AI PRACTICE */
+.ai-cognition{background:linear-gradient(135deg,rgba(138,168,255,.06),rgba(15,122,64,.04));border:1px solid rgba(138,168,255,.12);border-radius:var(--radius);padding:36px;margin-bottom:28px}
+.ai-formula{font-size:clamp(20px,2.8vw,30px);font-weight:800;text-align:center;line-height:1.4;margin-bottom:10px;background:linear-gradient(90deg,#fff,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ai-formula small{display:block;font-size:13.5px;font-weight:600;color:var(--muted);margin-top:8px;letter-spacing:0;-webkit-text-fill-color:var(--muted)}
+.ai-cognition-points{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.ai-point{background:rgba(255,255,255,.03);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:18px}
+.ai-point b{color:var(--blue);font-weight:700;display:block;margin-bottom:5px;font-size:14px}
+.ai-point p{color:var(--muted-light);font-size:13px;line-height:1.65;margin:0}
+.sop-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.sop-header h3{font-size:17px;font-weight:700;color:var(--ink)}
+.sop-badge{font-size:11px;font-weight:700;color:var(--warm);background:var(--warm-soft);padding:5px 12px;border-radius:999px;letter-spacing:.05em}
+.sop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.sop-card{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:22px;transition:all .25s ease}
+.sop-card:hover{border-color:rgba(138,168,255,.2);transform:translateY(-2px)}
+.sop-icon{font-size:22px;margin-bottom:10px;display:block}
+.sop-card h4{font-size:14.5px;font-weight:700;margin-bottom:7px;color:var(--ink)}
+.sop-card p{font-size:12.5px;color:var(--muted);line-height:1.6;margin:0}
+.ai-cases{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ai-case{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:22px;border-left:3px solid var(--blue)}
+.ai-case .case-tag{display:inline-block;font-size:10.5px;font-weight:800;color:var(--blue);background:var(--blue-soft);padding:3px 9px;border-radius:5px;margin-bottom:9px;letter-spacing:.05em}
+.ai-case h4{font-size:14.5px;font-weight:700;margin-bottom:5px;color:var(--ink)}
+.ai-case p{font-size:12.5px;color:var(--muted);line-height:1.6;margin:0}
+
+/* ═══════════ PRODUCT CARDS (入口卡片，不搬销售页) ═══════════ */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.product-card{
+  background:var(--card);border:1px solid var(--border-soft);
+  border-radius:var(--radius);padding:28px;
+  transition:all .25s ease;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.product-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--green),var(--green-light));
+  opacity:0;transition:opacity .25s ease;
+}
+.product-card.blue::before{background:linear-gradient(90deg,var(--blue),#a8c0ff)}
+.product-card.warm::before{background:linear-gradient(90deg,var(--warm),#f0a050)}
+.product-card:hover{border-color:rgba(138,168,255,.2);background:var(--card-hover);transform:translateY(-3px);box-shadow:var(--shadow)}
+.product-card:hover::before{opacity:1}
+.pc-type{
+  display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.1em;
+  color:var(--green-light);background:var(--green-soft);
+  padding:4px 10px;border-radius:6px;margin-bottom:14px;align-self:flex-start;
+}
+.product-card.blue .pc-type{color:var(--blue);background:var(--blue-soft)}
+.product-card.warm .pc-type{color:var(--warm);background:var(--warm-soft)}
+.pc-name{font-size:19px;font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.35}
+.pc-desc{font-size:13.5px;color:var(--muted-light);line-height:1.7;margin-bottom:16px;flex:1}
+.pc-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.pc-tag{
+  font-size:11px;font-weight:600;color:var(--muted);
+  background:rgba(255,255,255,.04);border:1px solid var(--border-soft);
+  padding:4px 10px;border-radius:6px;
+}
+.pc-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-size:15px;font-weight:800;padding:13px 28px;border-radius:12px;
+  color:#fff;background:linear-gradient(135deg,#0f7a40,var(--green-light));
+  box-shadow:0 4px 16px rgba(15,122,64,.28);
+  transition:all .2s ease;align-self:flex-start;cursor:pointer;
+}
+.product-card.blue .pc-cta{background:linear-gradient(135deg,#3f5fd9,var(--blue));box-shadow:0 4px 16px rgba(138,168,255,.28)}
+.product-card.warm .pc-cta{background:linear-gradient(135deg,#c96a1f,var(--warm));box-shadow:0 4px 16px rgba(224,122,44,.28)}
+.pc-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(138,168,255,.4);gap:11px}
+.pc-cta::after{content:'→';font-size:16px}
+.pc-status{
+  display:inline-block;font-size:12.5px;font-weight:700;color:var(--muted);
+  background:rgba(255,255,255,.05);border:1px solid var(--border-soft);
+  padding:10px 22px;border-radius:12px;align-self:flex-start;
+}
+.pc-status.hot{color:var(--warm);background:var(--warm-soft);border-color:rgba(224,122,44,.2)}
+
+/* FOOTER */
+.footer{padding:36px 0;text-align:center;border-top:1px solid var(--border-soft);margin-top:20px}
+.footer p{font-size:12.5px;color:var(--muted-dim)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-metrics{grid-template-columns:repeat(2,1fr)}
+  .hero-metrics .hm:nth-child(2){border-right:0}
+  .hero-metrics .hm:nth-child(-n+2){border-bottom:1px solid var(--border-soft)}
+  .about-grid{grid-template-columns:1fr}
+  .ai-cognition-points{grid-template-columns:1fr}
+  .sop-grid{grid-template-columns:1fr}
+  .ai-cases{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:1fr}
+  section{padding:64px 0}
+  .hero{padding-top:130px;padding-bottom:72px}
+  .ai-cognition{padding:24px}
+  .contact-zone{padding:20px 16px}
+}
+@media(max-width:600px){
+  .wrap{width:calc(100% - 28px)}
+  .nav-in{min-height:54px}
+  .tab{padding:6px 11px;font-size:12.5px}
+  .hero h1{font-size:clamp(36px,11vw,52px)}
+  .hero-metrics{grid-template-columns:1fr 1fr}
+  .section-title{font-size:26px}
+  .about-card{padding:22px}
+  .contact-info{flex-direction:column;gap:14px;align-items:center}
+  .product-card{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-in">
+    <div class="brand"><span class="brand-mark"></span>曹猛</div>
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-target="about">关于曹猛</button>
+      <button class="tab" data-target="ai">AI实践</button>
+      <button class="tab" data-target="data">书籍产品</button>
+      <button class="tab" data-target="courses">课程产品</button>
+      <button class="tab" data-target="consulting">咨询产品</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-tag"><span class="dot"></span>集团 EHS 顾问 · AI+EHS 实践者</div>
+    <h1>让安全管理<br><span class="accent">成为可复利的业务系统</span></h1>
+    <p class="lead">11 年 EHS 实战 · 集团 EHS 顾问 · 「EHS 知行」主理人</p>
+    <p class="sub">以专业为底座，以方法论为杠杆，以 AI 为放大器——帮助企业把安全从"靠人盯"变成"体系驱动"。</p>
+    <div class="hero-cta">
+      <a href="#about" class="btn btn-primary">了解曹猛 →</a>
+      <a href="#ai" class="btn btn-ghost">AI 实践</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="hm"><b>11<span style="font-size:.4em">年</span></b><span>EHS 实战经验</span></div>
+      <div class="hm"><b>5<span style="font-size:.4em">门</span></b><span>成熟课程产品</span></div>
+      <div class="hm"><b>6000<span style="font-size:.4em">+</span></b><span>公众号粉丝</span></div>
+      <div class="hm"><b>4<span style="font-size:.4em">项</span></b><span>专业资质认证</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <span class="section-tag">About</span>
+    <h2 class="section-title">关于<span class="gradient-text">曹猛</span></h2>
+    <p class="section-sub">不是单纯的 EHS 从业者，也不是单纯的 AI 工具使用者——而是把 EHS 专业、行业方法论与 AI 放大器长期主义地经营在一起的实践者。</p>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3><span class="icon">🎓</span>专业背景</h3>
+        <ul>
+          <li><b>学历：</b>东北大学 化学工程硕士</li>
+          <li><b>资质：</b>一级注册消防工程师</li>
+          <li><b>资质：</b>中级注册安全工程师</li>
+          <li><b>资质：</b>UESG · 碳资产管理师</li>
+          <li><b>品牌：</b>「EHS 知行」公众号主理人</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3><span class="icon">💡</span>个人特长</h3>
+        <ul>
+          <li>善于总结一套<b>方法论</b>，并简化为可落地的体系、工具包与课程</li>
+          <li>从<b>企业和高层需求</b>出发，开发课程与产品</li>
+          <li>把 <b>AI</b> 真正接入业务流程，沉淀为可复用的 Skills 与 SOP</li>
+          <li>长期主义经营个人品牌，内容持续输出 300+ 篇</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-wrap">
+      <h3 style="font-size:17px;font-weight:700;margin-bottom:20px;color:var(--ink)">职业经历</h3>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-year">2023.04 — 至今</div><div class="tl-role">集团 EHS 顾问</div><div class="tl-company">苏州工业园区科技发展有限公司</div><div class="tl-desc">负责集团层面 EHS 体系建设与顾问支持，推动多园区安全管理标准化。</div></div>
+        <div class="tl-item"><div class="tl-year">2022.07 — 2023.04</div><div class="tl-role">EHS Manager</div><div class="tl-company">苏州尚美国际化妆品有限公司（欧莱雅集团 · 世界 500 强）</div><div class="tl-desc">全面负责工厂 EHS 管理，推动安全文化建设与体系落地。</div></div>
+        <div class="tl-item"><div class="tl-year">2018.03 — 2022.06</div><div class="tl-role">EHS Advisor 兼安全总监</div><div class="tl-company">阿克苏诺贝尔防护涂料（苏州）有限公司（世界 500 强）</div><div class="tl-desc">4 年统筹管理经验，搭建从 0 到 1 的 EHS 管理体系，推动安全文化转型。</div></div>
+        <div class="tl-item"><div class="tl-year">2015.07 — 2018.02</div><div class="tl-role">EHS 高级工程师</div><div class="tl-company">友达光电（昆山）有限公司</div><div class="tl-desc">EHS 入行起点，积累现场安全管理与风险防控实战经验。</div></div>
+      </div>
+    </div>
+    <h3 style="font-size:17px;font-weight:700;margin:28px 0 10px;color:var(--ink)">合作与联系</h3>
+    <div class="contact-zone">
+      <div class="coop-types">
+        <span class="coop-tag">企业培训</span><span class="coop-tag">管理咨询</span><span class="coop-tag">AI 咨询</span><span class="coop-tag">课程共创</span><span class="coop-tag">内容合作</span>
+      </div>
+      <div class="clients">
+        <div class="clients-label">服务过的客户</div>
+        <div class="clients-row">
+          <span class="client-tag">中兴通讯</span><span class="client-tag">常熟兴华港务</span><span class="client-tag">常熟国资港务</span><span class="client-tag">滴滴出行</span><span class="client-tag">西卡</span><span class="client-tag">积水中间膜</span>
+        </div>
+      </div>
+      <div class="clients">
+        <div class="clients-label">合作服务商</div>
+        <div class="clients-row">
+          <span class="client-tag">磐石安全</span><span class="client-tag">EFC 环一科技</span><span class="client-tag">安全361</span><span class="client-tag">安全五点半</span><span class="client-tag">安全影响力（祺安）</span>
+        </div>
+      </div>
+      <div class="qr-pair">
+        <div class="qr-item"><div class="qr-img"><img src="assets/qr-wechat-personal.jpg" alt="个人微信二维码"></div><span class="qr-label">个人微信</span><span class="qr-hint">扫码添加好友</span></div>
+        <div class="qr-item"><div class="qr-img"><img src="assets/qr-official-account.jpg" alt="公众号二维码"></div><span class="qr-label">公众号「EHS 知行」</span><span class="qr-hint">扫码关注</span></div>
+      </div>
+      <div class="contact-info">
+        <div class="ci-item"><span class="ci-icon">📧</span><a href="mailto:MarvinCao@yeah.net">MarvinCao@yeah.net</a></div>
+        <div class="ci-item"><span class="ci-icon">📱</span><a href="tel:18362770562">183-6277-0562</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI PRACTICE -->
+<section id="ai">
+  <div class="wrap">
+    <span class="section-tag green">AI Practice</span>
+    <h2 class="section-title">AI 实践<span class="gradient-text">与机制应用</span></h2>
+    <p class="section-sub">AI 不是跟风用工具，而是把专业、流程和 SOP 沉淀为可复用的 AI 资产——让 AI 继承、执行、放大你的判断。</p>
+    <div class="ai-cognition">
+      <div class="ai-formula">竞争力 = 认知 × 业务 × 工具<small>AI 是放大器，不是解药——先有专业和流程，再让 AI 放大</small></div>
+      <div class="ai-cognition-points">
+        <div class="ai-point"><b>AI 共创观</b><p>我带它 → 熟悉我 → 复制我 → 超越我。AI 因为能"参与养成"才重要，不是一次性工具。</p></div>
+        <div class="ai-point"><b>落地判断尺</b><p>任何真实问题先回溯 SOP 再产出；只修表面不修机制是坑；AI 不替代业务判断，只放大判断。</p></div>
+      </div>
+    </div>
+    <div class="sop-header"><h3>各环节 SOP 体系</h3><span class="sop-badge">持续更新中</span></div>
+    <div class="sop-grid">
+      <div class="sop-card"><span class="sop-icon">🔄</span><h4>复盘总结 SOP</h4><p>资产总结与复盘系统 V3.0，多端每日对话日志运行 SOP——把 AI 对话自动转化为知识资产。</p></div>
+      <div class="sop-card"><span class="sop-icon">🤖</span><h4>Agent + Skills 开发 SOP</h4><p>从方法论到 Skills 的标准化开发流程，把课程、SOP、工具封装为可复用的 AI 技能资产。</p></div>
+      <div class="sop-card"><span class="sop-icon">📝</span><h4>公众号与自媒体运营 SOP</h4><p>公众号文章从选题到排版发布全流程 AI 辅助，口播脚本结构化生产，内容矩阵自动化运转。</p></div>
+    </div>
+    <div class="sop-header" style="margin-top:8px"><h3>与 EHS 相关案例</h3><span class="sop-badge">开发与意识 · 持续更新</span></div>
+    <div class="ai-cases">
+      <div class="ai-case"><span class="case-tag">持续更新</span><h4>AI+风险防控</h4><p>以事故链理论为底层，四步搭建法+项目推进方法，让 AI 进入风险管控工作流，培养 AI+风险防控项目工程师。</p></div>
+      <div class="ai-case"><span class="case-tag">待建设</span><h4>AI+应急管理</h4><p>探索 AI 在应急预案、应急响应、指挥调度中的落地应用，构建应急管理数字化能力。</p></div>
+      <div class="ai-case"><span class="case-tag">持续更新</span><h4>AI+承包商管理</h4><p>多角色 Agent（制度专家 + 流程专家 + 审核专家），深度解构承包商管理制度知识，提升管理落地性。</p></div>
+      <div class="ai-case"><span class="case-tag">待建设</span><h4>AI+招商管理</h4><p>面向园区招商场景，探索 AI 在招商筛选、谈判支持、入驻服务中的效率提升。</p></div>
+    </div>
+    <div class="sop-header" style="margin-top:8px"><h3>通用与自我管理案例</h3><span class="sop-badge">持续更新</span></div>
+    <div class="ai-cases">
+      <div class="ai-case"><span class="case-tag">持续更新</span><h4>AI+记录复盘总结</h4><p>多端 AI 对话自动收集、结构化整理、知识卡片提取、复盘生成——把每天的 AI 交互转化为可复利的知识资产。</p></div>
+      <div class="ai-case"><span class="case-tag">持续更新</span><h4>AI+成品课程转化为直播网页</h4><p>用 AI 辅助开发课程独立销售页与直播网页——从课程方案到页面落地的 AI 加速流程。</p></div>
+      <div class="ai-case"><span class="case-tag">持续更新</span><h4>开发 Agent + Skills（员工+技能）</h4><p>从方法论到 Skills 的标准化开发流程，把课程、SOP、工具封装为可复用的 AI 技能资产。</p></div>
+      <div class="ai-case"><span class="case-tag">待建设</span><h4>如何做技能 SOP</h4><p>把重复性工作沉淀为标准化 SOP，并进一步封装为 AI 可执行的技能资产。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BOOK PRODUCTS ═══════════ -->
+<section id="data">
+  <div class="wrap">
+    <span class="section-tag warm">Book Products</span>
+    <h2 class="section-title">书籍<span class="gradient-text">产品</span></h2>
+    <p class="section-sub">把实战经验沉淀为系统著作——从方法论到工具包，从电气安全到风险管控，持续输出可复利的知识资产。</p>
+    <div class="product-grid">
+
+      <div class="product-card warm">
+        <span class="pc-type">出版中 · 预售</span>
+        <h3 class="pc-name">电气设施全生命周期安全管理指南</h3>
+        <p class="pc-desc">以"全生命周期"为经纬——设计源头 → 安装验收 → 运营维护 → 报废拆除，围绕"电起火、电伤人、异常断电"三大核心风险，配套流程图、检查表、评审表单等即查即用工具，让电气工程师与安全管理者殊途同归。</p>
+        <div class="pc-meta"><span class="pc-tag">全生命周期</span><span class="pc-tag">电气安全</span><span class="pc-tag">三大核心风险</span><span class="pc-tag">即查即用工具</span></div>
+        <a href="books/electrical/index.html" target="_blank" class="pc-cta">查看销售页</a>
+      </div>
+
+      <div class="product-card blue">
+        <span class="pc-type">已定稿</span>
+        <h3 class="pc-name">基于能量致害的风险管控落地指南</h3>
+        <p class="pc-desc">1个核心+2个节点+6道防线方法论，让双重预防机制从纸面变成运转起来的机制，从源头降低现场事故与损失。</p>
+        <div class="pc-meta"><span class="pc-tag">双重预防</span><span class="pc-tag">能量致害</span><span class="pc-tag">六道防线</span></div>
+        <span class="pc-status hot">已定稿 · 待出版</span>
+      </div>
+
+      <div class="product-card">
+        <span class="pc-type">待写</span>
+        <h3 class="pc-name">主动安全文化</h3>
+        <p class="pc-desc">从被动合规到主动预防，探索高层—中层—班组三级联动的安全文化建设路径，让安全从"要我安全"变成"我要安全"。</p>
+        <div class="pc-meta"><span class="pc-tag">安全文化</span><span class="pc-tag">三级联动</span><span class="pc-tag">主动预防</span></div>
+        <span class="pc-status">预告中</span>
+      </div>
+
+      <div class="product-card warm">
+        <span class="pc-type">待写</span>
+        <h3 class="pc-name">基层风险精准防控指南</h3>
+        <p class="pc-desc">基于"权利×意愿×能力×提醒"四要素诊断框架，配套诊断记录、机制清单、能力工具包、提醒地图，帮助企业把基层风险防控落地。</p>
+        <div class="pc-meta"><span class="pc-tag">基层风险</span><span class="pc-tag">四要素</span><span class="pc-tag">工具包</span></div>
+        <span class="pc-status">预告中</span>
+      </div>
+
+      <div class="product-card blue">
+        <span class="pc-type">待写</span>
+        <h3 class="pc-name">AI+安全风险防控</h3>
+        <p class="pc-desc">以事故链理论为底层，四步搭建法+项目推进方法，AI 成功落地三分靠技术七分靠管理——帮企业培养 AI+风险防控项目工程师。</p>
+        <div class="pc-meta"><span class="pc-tag">AI+安全</span><span class="pc-tag">事故链</span><span class="pc-tag">项目管理</span></div>
+        <span class="pc-status">预告中</span>
+      </div>
+
+      <div class="product-card">
+        <span class="pc-type">待写</span>
+        <h3 class="pc-name">安全风险管控效果多维度评估指南</h3>
+        <p class="pc-desc">超越"整改完成率"等表面指标，建立根源整改率、行为变化率、事故趋势等多维度评估体系，让安全管理效果可衡量、可改进。</p>
+        <div class="pc-meta"><span class="pc-tag">效果评估</span><span class="pc-tag">多维度</span><span class="pc-tag">可衡量</span></div>
+        <span class="pc-status">预告中</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COURSE PRODUCTS ═══════════ -->
+<section id="courses">
+  <div class="wrap">
+    <span class="section-tag green">Course Products</span>
+    <h2 class="section-title">课程<span class="gradient-text">产品</span></h2>
+    <p class="section-sub">6 门成熟课程，覆盖线上 AI 学习、基层风险防控、企业 AI 赋能、承包商管理、双重预防机制、AI+安全风险防控——每门课都有独立销售页，点击查看详情。</p>
+    <div class="product-grid">
+
+      <div class="product-card warm">
+        <span class="pc-type">在线课程 · 5 阶段体系</span>
+        <h3 class="pc-name">AI 赋能业务管理，打造资产</h3>
+        <p class="pc-desc">面向个人与业务管理者的在线实战课。用 AI 把真实业务做得更快、更准，并把每次共创沉淀为可复利的个人资产。</p>
+        <div class="pc-meta"><span class="pc-tag">在线课程</span><span class="pc-tag">AI 实战</span><span class="pc-tag">资产沉淀</span></div>
+        <a href="courses/ai-online/index.html" target="_blank" rel="noopener" class="pc-cta">查看销售页</a>
+      </div>
+
+      <div class="product-card">
+        <span class="pc-type">核心课程 · 1天版</span>
+        <h3 class="pc-name">基层风险精准防控落地实践</h3>
+        <p class="pc-desc">基层是事故链条的最后一环。用"权利×意愿×能力×提醒"四要素诊断框架，把安全从"靠人盯"变成"员工敢暴露、现场会防控、体系能推动"。</p>
+        <div class="pc-meta"><span class="pc-tag">基层风险</span><span class="pc-tag">四要素诊断</span><span class="pc-tag">工具包</span></div>
+        <a href="courses/jiceng/index.html" target="_blank" class="pc-cta">查看销售页</a>
+      </div>
+
+      <div class="product-card blue">
+        <span class="pc-type">核心课程 · 2天版</span>
+        <h3 class="pc-name">AI 赋能业务管理提效提质</h3>
+        <p class="pc-desc">企业员工面对 AI"工具太多、不会用、怕被替代"。以"时间"与"成事"为认知起点，六步路径帮学员搭建自己的 AI 工作流，带着解决企业问题的雏形方案回岗落地。</p>
+        <div class="pc-meta"><span class="pc-tag">AI 赋能</span><span class="pc-tag">六步路径</span><span class="pc-tag">Agent 员工</span></div>
+        <a href="courses/ai-business/index.html" target="_blank" class="pc-cta">查看销售页</a>
+      </div>
+
+      <div class="product-card warm">
+        <span class="pc-type">成熟课程</span>
+        <h3 class="pc-name">承包商全生命周期安全管理</h3>
+        <p class="pc-desc">企业承包商管理"粗放型只给钱、细致型管得细施工慢"的两难。以承包商项目"启动→准备→执行→收尾"全生命周期为主线，厘清管理边界，让安全人站在企业运营角度做管理。</p>
+        <div class="pc-meta"><span class="pc-tag">承包商管理</span><span class="pc-tag">全生命周期</span><span class="pc-tag">管理工具包</span></div>
+        <a href="courses/contractor/index.html" target="_blank" class="pc-cta">查看销售页</a>
+      </div>
+
+      <div class="product-card">
+        <span class="pc-type">成熟课程</span>
+        <h3 class="pc-name">基于能量致害防控的风险管控落地实践</h3>
+        <p class="pc-desc">双重预防机制停留在纸面，危险源辨识模糊、管控措施无针对性。用"1个核心+2个节点+6道防线"方法论，让业务部门成为风险管控主角，从源头降低现场事故。</p>
+        <div class="pc-meta"><span class="pc-tag">双重预防</span><span class="pc-tag">能量致害</span><span class="pc-tag">六道防线</span></div>
+        <a href="courses/energy/index.html" target="_blank" class="pc-cta">查看销售页</a>
+      </div>
+
+      <div class="product-card blue">
+        <span class="pc-type">成熟课程</span>
+        <h3 class="pc-name">AI+安全风险精准防控落地实践</h3>
+        <p class="pc-desc">企业 AI+安全项目普遍"搭了系统却用不起来"。以事故链理论为底层，四步搭建法+项目推进方法，培养 AI+风险防控项目工程师，让 AI 真正进入风险管控工作流。</p>
+        <div class="pc-meta"><span class="pc-tag">AI+安全</span><span class="pc-tag">事故链理论</span><span class="pc-tag">10个落地场景</span></div>
+        <a href="courses/ai-safety/index.html" target="_blank" class="pc-cta">查看销售页</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONSULTING PRODUCTS ═══════════ -->
+<section id="consulting">
+  <div class="wrap">
+    <span class="section-tag">Consulting Products</span>
+    <h2 class="section-title">咨询<span class="gradient-text">产品</span></h2>
+    <p class="section-sub">基于 11 年 EHS 实战与 AI 落地经验，提供企业定制化咨询服务——从体系创建到量化评估，帮企业把专业能力沉淀为可持续运营的系统。</p>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <span class="pc-type">量化评估</span>
+        <h3 class="pc-name">专项风险多维度量化评估与提升</h3>
+        <p class="pc-desc">针对高风险作业、工艺安全、承包商等专项风险，建立多维度量化评估模型，精准定位风险等级与管控短板，输出可落地、可验证的提升方案。</p>
+        <div class="pc-meta"><span class="pc-tag">专项风险</span><span class="pc-tag">量化评估</span><span class="pc-tag">提升方案</span></div>
+        <span class="pc-status">建设中 · 待上线</span>
+      </div>
+
+      <div class="product-card blue">
+        <span class="pc-type">体系创建与评估</span>
+        <h3 class="pc-name">电气安全体系创建与评估</h3>
+        <p class="pc-desc">基于电气设施全生命周期管理方法论，帮助企业从设计源头到报废拆除搭建电气安全管理体系，并对现有体系进行全面评估与优化提升。</p>
+        <div class="pc-meta"><span class="pc-tag">电气安全</span><span class="pc-tag">全生命周期</span><span class="pc-tag">体系评估</span></div>
+        <span class="pc-status">建设中 · 待上线</span>
+      </div>
+
+      <div class="product-card warm">
+        <span class="pc-type">体系创建</span>
+        <h3 class="pc-name">基层风险精准防控体系创建</h3>
+        <p class="pc-desc">基于"权利×意愿×能力×提醒"四要素诊断框架，帮助企业创建基层风险精准防控体系，让基层"敢暴露、会防控、能推动"。</p>
+        <div class="pc-meta"><span class="pc-tag">基层风险</span><span class="pc-tag">四要素</span><span class="pc-tag">体系创建</span></div>
+        <span class="pc-status">建设中 · 待上线</span>
+      </div>
+
+      <div class="product-card">
+        <span class="pc-type">体系创建</span>
+        <h3 class="pc-name">组织可持续发展与提升体系创建</h3>
+        <p class="pc-desc">从 EHS 到 ESG，帮助企业搭建可持续发展管理体系，实现组织在安全、环境、治理维度的持续提升与长期价值增长。</p>
+        <div class="pc-meta"><span class="pc-tag">可持续发展</span><span class="pc-tag">ESG</span><span class="pc-tag">体系创建</span></div>
+        <span class="pc-status">建设中 · 待上线</span>
+      </div>
+
+      <div class="product-card blue">
+        <span class="pc-type">体系创建与评估</span>
+        <h3 class="pc-name">主动安全文化体系创建与评估</h3>
+        <p class="pc-desc">从被动合规到主动预防，帮助企业创建并评估主动安全文化体系，推动高层—中层—班组三级联动，让安全从"要我安全"变成"我要安全"。</p>
+        <div class="pc-meta"><span class="pc-tag">安全文化</span><span class="pc-tag">主动预防</span><span class="pc-tag">创建与评估</span></div>
+        <span class="pc-status">建设中 · 待上线</span>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--muted)">咨询产品持续更新中，更多定制化服务欢迎联系沟通 →</p>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="wrap"><p>© 2026 曹猛 · 集团 EHS 顾问 · AI+EHS 实践者 · 「EHS 知行」主理人</p></div>
+</div>
+
+<script>
+(function(){
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var sections=['about','ai','data','courses','consulting'];
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      var target=t.getAttribute('data-target');
+      var el=document.getElementById(target);
+      if(el){var top=el.getBoundingClientRect().top+window.pageYOffset-72;window.scrollTo({top:top,behavior:'smooth'});}
+    });
+  });
+  function updateActive(){
+    var scrollPos=window.pageYOffset+120;
+    var current=sections[0];
+    for(var i=0;i<sections.length;i++){var el=document.getElementById(sections[i]);if(el&&el.offsetTop<=scrollPos){current=sections[i];}}
+    tabs.forEach(function(t){t.classList.toggle('on',t.getAttribute('data-target')===current);});
+  }
+  window.addEventListener('scroll',updateActive,{passive:true});
+  updateActive();
+})();
+</script>
+</body>
+</html>

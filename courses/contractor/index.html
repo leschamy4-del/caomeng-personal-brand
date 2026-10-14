@@ -1,0 +1,1830 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>承包商全生命周期安全管理实战课</title>
+  <meta name="description" content="承包商全生命周期安全管理实战课，帮助企业 EHS 与业务管理者，从项目启动、准备、执行到收尾全流程管好承包商，让超过 63% 由承包商引发的安全事故不再发生。">
+  <style>
+    :root {
+      --bg: #fbf7f4;
+      --paper: #ffffff;
+      --ink: #3a2a1e;
+      --muted: #7a6a58;
+      --line: #ecd9c9;
+      --brand: #c2571b;
+      --brand-dark: #8a3c10;
+      --brand-soft: #f9e9dc;
+      --amber: #e0802a;
+      --amber-soft: #fdf0e0;
+      --orange: #e7802f;
+      --orange-soft: #fff1e4;
+      --shadow: 0 22px 60px rgba(138, 60, 16, .12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.72;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(236, 217, 201, .8);
+      background: rgba(251, 247, 244, .92);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: conic-gradient(from 35deg, var(--brand), var(--amber), var(--orange), var(--brand));
+      box-shadow: inset 0 0 0 6px rgba(255, 255, 255, .7);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-cta,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-weight: 700;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .nav-cta,
+    .btn-primary {
+      color: #fff;
+      background: var(--brand);
+      box-shadow: 0 12px 28px rgba(194, 87, 27, .22);
+    }
+
+    .btn-secondary {
+      color: var(--brand-dark);
+      background: rgba(255, 255, 255, .86);
+      border-color: var(--line);
+    }
+
+    .nav-cta:hover,
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(138, 60, 16, .18);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      overflow: hidden;
+      color: #fff;
+      background: #5a2a0c;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(50, 22, 6, .94) 0%, rgba(50, 22, 6, .82) 46%, rgba(50, 22, 6, .42) 100%),
+        url("assets/slide-pain.jpg") center right / cover no-repeat;
+      transform: scale(1.02);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 120px;
+      background: linear-gradient(180deg, rgba(251, 247, 244, 0), var(--bg));
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1160px, calc(100% - 40px));
+      min-height: 760px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, .72fr);
+      align-items: center;
+      gap: 54px;
+      padding: 96px 0 132px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: #fbe3d0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 3px;
+      background: var(--amber);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(38px, 6.4vw, 78px);
+      line-height: 1.06;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 720px;
+      margin-top: 26px;
+      color: rgba(255, 255, 255, .88);
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.58;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 44px;
+      max-width: 680px;
+    }
+
+    .proof-item {
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .proof-num {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .proof-label {
+      display: block;
+      margin-top: 9px;
+      color: rgba(255, 255, 255, .72);
+      font-size: 13px;
+    }
+
+    .hero-visual {
+      align-self: end;
+    }
+
+    .slide-stack {
+      position: relative;
+      min-height: 430px;
+    }
+
+    .slide-card {
+      position: absolute;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 26px 80px rgba(0, 0, 0, .26);
+      border: 1px solid rgba(255, 255, 255, .36);
+    }
+
+    .slide-card.primary {
+      inset: 54px 0 auto 0;
+      z-index: 3;
+    }
+
+    .slide-card.back-one {
+      width: 88%;
+      right: 22px;
+      top: 0;
+      z-index: 2;
+      opacity: .86;
+      transform: rotate(3deg);
+    }
+
+    .slide-card.back-two {
+      width: 78%;
+      left: 6px;
+      top: 112px;
+      z-index: 1;
+      opacity: .72;
+      transform: rotate(-4deg);
+    }
+
+    .section {
+      padding: 96px 0;
+    }
+
+    .section.tight {
+      padding: 72px 0;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-head {
+      max-width: 850px;
+      margin-bottom: 42px;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--brand);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .label::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.14;
+      letter-spacing: 0;
+    }
+
+    .section-desc {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 820px;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .pain-card,
+    .method-card,
+    .feature,
+    .deliverable,
+    .fit-card,
+    .agenda-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(138, 60, 16, .06);
+    }
+
+    .pain-card {
+      min-height: 210px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .pain-index {
+      color: var(--orange);
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .pain-card h3 {
+      margin-top: 18px;
+      font-size: 21px;
+      line-height: 1.32;
+    }
+
+    .pain-card p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .diagnosis {
+      margin-top: 26px;
+      padding: 28px;
+      border-left: 6px solid var(--brand);
+      border-radius: var(--radius);
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .existence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 34px 0 28px;
+    }
+
+    .existence-card {
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(138, 60, 16, .06);
+    }
+
+    .existence-card small {
+      display: inline-flex;
+      margin-bottom: 14px;
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .existence-card h3 {
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    .existence-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .formula-band {
+      background: #6e3410;
+      color: #fff;
+      padding: 90px 0;
+    }
+
+    .formula {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+      font-size: clamp(24px, 3.6vw, 46px);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .formula .chip {
+      padding: 10px 18px 12px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
+    }
+
+    .formula .operator {
+      color: var(--amber);
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 42px;
+    }
+
+    .method-card {
+      padding: 26px;
+      color: var(--ink);
+    }
+
+    .method-card h3 {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .method-card h3 span {
+      color: var(--brand);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .method-card p {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .method-card strong {
+      display: block;
+      margin-top: 22px;
+      color: var(--brand-dark);
+      font-size: 15px;
+    }
+
+    .learning-chain {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .chain-step {
+      position: relative;
+      min-height: 150px;
+      padding: 20px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .chain-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      width: 14px;
+      height: 2px;
+      background: var(--brand);
+    }
+
+    .chain-step b {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--brand);
+      font-size: 13px;
+    }
+
+    .chain-step h3 {
+      margin-top: 16px;
+      font-size: 18px;
+      line-height: 1.28;
+    }
+
+    .chain-step p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .belief-band {
+      padding: 46px;
+      border-radius: var(--radius);
+      background: #5a2a0c;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .belief-band p {
+      max-width: 980px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 19px;
+    }
+
+    .belief-band strong {
+      display: block;
+      margin-top: 18px;
+      color: #fff;
+      font-size: 24px;
+      line-height: 1.45;
+    }
+
+    .module-lab {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .module-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(138, 60, 16, .06);
+      overflow: hidden;
+    }
+
+    .module-top {
+      padding: 22px 24px;
+      color: #fff;
+      background: var(--brand);
+    }
+
+    .module-top small {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, .7);
+      font-weight: 800;
+    }
+
+    .module-top h3 {
+      font-size: 25px;
+      line-height: 1.25;
+    }
+
+    .module-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .module-block {
+      padding: 22px 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .module-block:nth-child(odd) {
+      border-right: 1px solid var(--line);
+    }
+
+    .module-block h4 {
+      margin: 0 0 10px;
+      color: var(--brand-dark);
+      font-size: 15px;
+    }
+
+    .module-block p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .activity-wall {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .activity-card {
+      min-height: 230px;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(138, 60, 16, .06);
+    }
+
+    .activity-card small {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      font-weight: 900;
+    }
+
+    .activity-card h3 {
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    .activity-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .experience {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .flow-step b {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--amber);
+      font-size: 15px;
+    }
+
+    .flow-step h3 {
+      font-size: 20px;
+      line-height: 1.28;
+    }
+
+    .flow-step p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .visual-panel {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .visual-panel figcaption {
+      padding: 18px 20px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .agenda {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .agenda-item {
+      min-height: 240px;
+      padding: 24px;
+    }
+
+    .agenda-item small {
+      color: var(--brand);
+      font-weight: 900;
+    }
+
+    .agenda-item h3 {
+      margin-top: 12px;
+      font-size: 24px;
+      line-height: 1.28;
+    }
+
+    .agenda-item p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      padding: 24px;
+      min-height: 250px;
+    }
+
+    .feature h3 {
+      font-size: 21px;
+      line-height: 1.32;
+    }
+
+    .feature p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature .tag {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--amber);
+      background: var(--amber-soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .proof-strip {
+      margin-top: 44px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .proof-strip figure {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .proof-strip figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .deliverables {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .gain-group {
+      margin-top: 34px;
+    }
+
+    .gain-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--brand-dark);
+    }
+
+    .gain-title::before {
+      content: "";
+      width: 5px;
+      height: 20px;
+      border-radius: 3px;
+      background: var(--orange);
+    }
+
+    .deliverable {
+      padding: 24px;
+    }
+
+    .deliverable h3 {
+      font-size: 22px;
+    }
+
+    .deliverable p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .fit-section {
+      background: #f6ece2;
+    }
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .fit-card {
+      padding: 20px;
+      background: rgba(255, 255, 255, .72);
+      min-height: 170px;
+    }
+
+    .fit-card h3 {
+      color: var(--brand-dark);
+      font-size: 19px;
+      line-height: 1.32;
+    }
+
+    .fit-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta {
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(50, 22, 6, .94), rgba(100, 48, 15, .88)),
+        url("assets/slide-startup.jpg") center right / cover no-repeat;
+    }
+
+    .cta-box {
+      width: min(920px, 100%);
+      padding: 86px 0;
+    }
+
+    .cta h2 {
+      max-width: 820px;
+    }
+
+    .cta p {
+      margin-top: 20px;
+      max-width: 760px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 19px;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .footer {
+      padding: 28px 0 42px;
+      color: var(--muted);
+      font-size: 14px;
+      background: #3a1a06;
+    }
+
+    .footer .container {
+      color: rgba(255, 255, 255, .62);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    @media (max-width: 1020px) {
+      .hero-inner,
+      .experience {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding-bottom: 110px;
+      }
+
+      .hero-visual {
+        max-width: 560px;
+      }
+
+      .pain-grid,
+      .existence-grid,
+      .feature-grid,
+      .fit-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .method-grid,
+      .learning-chain,
+      .module-lab,
+      .activity-wall,
+      .agenda,
+      .deliverables,
+      .proof-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .chain-step:not(:last-child)::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner,
+      .container,
+      .hero-inner {
+        width: min(100% - 28px, 1160px);
+      }
+
+      .nav-inner {
+        min-height: 58px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .brand span {
+        font-size: 14px;
+      }
+
+      .hero-inner {
+        padding: 72px 0 86px;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(50, 22, 6, .95) 0%, rgba(50, 22, 6, .9) 58%, rgba(50, 22, 6, .72) 100%),
+          url("assets/slide-pain.jpg") center / cover no-repeat;
+      }
+
+      .hero-proof,
+      .pain-grid,
+      .existence-grid,
+      .method-grid,
+      .learning-chain,
+      .module-lab,
+      .activity-wall,
+      .agenda,
+      .feature-grid,
+      .proof-strip,
+      .deliverables,
+      .fit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .module-body {
+        grid-template-columns: 1fr;
+      }
+
+      .module-block:nth-child(odd) {
+        border-right: none;
+      }
+
+      .belief-band {
+        padding: 28px 22px;
+      }
+
+      .belief-band strong {
+        font-size: 20px;
+      }
+
+      .slide-stack {
+        min-height: 310px;
+      }
+
+      .section {
+        padding: 68px 0;
+      }
+
+      .section.tight {
+        padding: 54px 0;
+      }
+
+      .diagnosis {
+        padding: 22px;
+        font-size: 19px;
+      }
+
+      .formula {
+        font-size: 26px;
+      }
+
+      .footer .container {
+        flex-direction: column;
+      }
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 34px;
+      padding: 18px 22px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .22);
+      max-width: 480px;
+    }
+
+    .contact-card img {
+      width: 112px;
+      height: 112px;
+      border-radius: 10px;
+      background: #fff;
+      padding: 6px;
+      flex: 0 0 auto;
+    }
+
+    .contact-card .contact-text strong {
+      display: block;
+      font-size: 19px;
+      color: #fff;
+    }
+
+    .contact-card .contact-text span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .footer-main {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-qr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .footer-qr img {
+      width: 104px;
+      height: 104px;
+      border-radius: 10px;
+      background: #fff;
+      padding: 6px;
+    }
+
+    .footer-qr span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .positioning-band {
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .positioning-band h2 {
+      margin-top: 14px;
+      font-size: clamp(24px, 3.4vw, 36px);
+      line-height: 1.3;
+      color: var(--brand-dark);
+    }
+
+    .positioning-desc {
+      margin-top: 18px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .positioning-desc b {
+      color: var(--brand);
+    }
+
+    .positioning-compare {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .compare-col {
+      flex: 1 1 280px;
+      max-width: 380px;
+      padding: 22px 24px;
+      border-radius: var(--radius);
+      text-align: left;
+    }
+
+    .compare-col strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .compare-col span {
+      display: block;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .compare-old {
+      background: #f3eae2;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .compare-new {
+      background: var(--brand-soft);
+      border: 1px solid #ecd0b8;
+      color: var(--brand-dark);
+    }
+
+    .compare-new strong {
+      color: var(--brand);
+    }
+
+    .compare-arrow {
+      align-self: center;
+      font-size: 28px;
+      color: var(--orange);
+      font-weight: 800;
+    }
+
+    .who-needs {
+      margin-top: 46px;
+    }
+
+    .who-head {
+      margin-bottom: 24px;
+    }
+
+    .who-head h3 {
+      font-size: 22px;
+      line-height: 1.35;
+      color: var(--brand-dark);
+    }
+
+    .who-head p {
+      margin-top: 8px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .formula-note {
+      max-width: 900px;
+      margin: 26px auto 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: rgba(255, 255, 255, .82);
+      text-align: left;
+    }
+
+    @media (max-width: 720px) {
+      .positioning-compare {
+        flex-direction: column;
+        align-items: center;
+      }
+      .compare-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="页面导航">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>承包商全生命周期安全管理</span>
+      </a>
+      <div class="nav-links" aria-label="页面章节">
+        <a href="#pain">为什么需要</a>
+        <a href="#logic">课程逻辑</a>
+        <a href="#course">课程框架</a>
+        <a href="#experience">课堂怎么练</a>
+        <a href="#outcome">课程成果</a>
+      </div>
+      <a class="nav-cta" href="#contact">预约沟通</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">承包商全生命周期安全管理 · 实战课</div>
+        <h1>承包商全生命周期安全管理</h1>
+        <p class="hero-lead">2024 年全国安全事故统计，超过 63% 由承包商引发。这门课面向 EHS 与业务管理者，把承包商管理讲成一条清晰的生命周期：从项目启动、准备、执行到收尾验收，四阶段十六项痛点逐一对症——让你从「只管出钱/只管盯着」变成「与业务部门一起，把承包商管成长期合作伙伴」。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#logic">查看课程逻辑</a>
+          <a class="btn btn-secondary" href="#contact">预约课程前沟通</a>
+        </div>
+        <div class="hero-proof" aria-label="课程交付数据">
+          <div class="proof-item">
+            <span class="proof-num">4阶段</span>
+            <span class="proof-label">启动 → 准备 → 执行 → 收尾</span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num">16项</span>
+            <span class="proof-label">全生命周期痛点逐一对症</span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num">1套</span>
+            <span class="proof-label">与业务配合的管理方法</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="课程课件预览">
+        <div class="slide-stack">
+          <div class="slide-card back-two">
+            <img src="assets/slide-ladder.jpg" alt="承包商安全管理阶梯课件截图">
+          </div>
+          <div class="slide-card back-one">
+            <img src="assets/slide-16pain.jpg" alt="管理四阶段十六项痛点课件截图">
+          </div>
+          <div class="slide-card primary">
+            <img src="assets/slide-pain.jpg" alt="承包商管理痛点课件截图">
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section tight">
+      <div class="container">
+        <div class="positioning-band">
+          <div class="label">课程定位</div>
+          <h2>不是「给承包商立规矩」，而是「四阶段全生命周期管好」</h2>
+          <p class="positioning-desc">很多企业把承包商管理做成了两头极端：<b>粗放型</b>——只给钱、其他都不管；<b>细致型</b>——管得细、施工进度慢。问题出在没有一套从项目启动到收尾的系统方法。这门课用「全生命周期」视角，把管理拆成<b>项目启动、项目准备、项目执行、项目收尾</b>四个阶段，每一阶段配清晰的流程与工具：先选对承包商、再在准备期把风险识别和交底做扎实、执行期靠业务协同管住现场风险、收尾期做好验收与评价——让超过 63% 由承包商引发的安全事故不再发生。</p>
+          <div class="positioning-compare">
+            <div class="compare-col compare-old">
+              <strong>传统承包商管理</strong>
+              <span>只管出钱 / 只管盯着 → 事故频发、进度两难<br>只签合同，不签安全协议；只做留痕培训</span>
+            </div>
+            <div class="compare-arrow">→</div>
+            <div class="compare-col compare-new">
+              <strong>这门全生命周期课</strong>
+              <span>四阶段 → 十六项对症 → 与业务协同<br>选对承包商、管好风险、验收评价、培养伙伴</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pain">
+        <div class="container">
+          <div class="section-head">
+            <div class="label">为什么需要这门课</div>
+            <h2>超 63% 的安全事故由承包商引发，但很多企业的承包商管理还停在「只签合同」——这一课，补上全生命周期管理的方法。</h2>
+            <p class="section-desc">2024 年全国安全事故统计显示，约 90% 的事故由人的不安全行为导致，其中约 70% 的不安全行为来自承包商——合计超 63% 的事故由承包商引发。承包商出事故，企业受影响的不只是安全——业务连续性、政府信任、股票价格都会承压；项目人员和安全管理人员还会面临职业生涯、问责甚至更严重的后果。这门课不是再加一层制度，而是给一套让承包商管理真正落地的系统方法。</p>
+          </div>
+
+          <div class="existence-grid" aria-label="企业为什么需要这门课">
+            <article class="existence-card">
+              <small>01 事故大头</small>
+              <h3>超 63% 的安全事故由承包商引发</h3>
+              <p>约 90% 事故由人的不安全行为导致，其中 70% 的不安全行为来自承包商。管好承包商，就是管住企业最大的事故来源。</p>
+            </article>
+            <article class="existence-card">
+              <small>02 系统硬伤</small>
+              <h3>低价中标、付款悖论、权责失衡</h3>
+              <p>利润低牺牲安全投入、付款拖延占用安全预算、合同把安全责任转嫁给承包商——这些系统硬伤不解决，怎么管都白费。</p>
+            </article>
+            <article class="existence-card">
+              <small>03 风险前移</small>
+              <h3>把管理前移到「启动 + 准备」阶段</h3>
+              <p>准备阶段做扎实，执行阶段的管理难度大幅降低。从招标选商、资质审查、风险识别到技术交底，全程前置。</p>
+            </article>
+            <article class="existence-card">
+              <small>04 双赢伙伴</small>
+              <h3>把承包商培养成长期合作伙伴</h3>
+              <p>不是对立监督，而是换位思考、共同解决问题，帮承包商提升能力，实现企业安全与项目进度的双赢。</p>
+            </article>
+          </div>
+
+          <div class="who-needs" aria-label="个人为什么需要这门课">
+            <div class="who-head">
+              <h3>个人为什么需要 · 五个真实卡点</h3>
+              <p>这些不是「承包商不听话」的问题，而是管理者每天都在面对的落地难题。</p>
+            </div>
+            <div class="pain-grid">
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">01</span>
+                  <h3>技术交底总是「走过场」</h3>
+                </div>
+                <p>交底做了，但承包商没听懂、没记住，施工时照样违规——有效性不足是最大痛点。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">02</span>
+                  <h3>资质审查不会审</h3>
+                </div>
+                <p>招标时无安全需求、不会资质审查，老板安排的无资质承包商也能进场。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">03</span>
+                  <h3>审批慢、未批先做</h3>
+                </div>
+                <p>危险作业许可多层审批，承包商为赶进度未批先做，进度与安全矛盾突出。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">04</span>
+                  <h3>人员设备随意更换</h3>
+                </div>
+                <p>进场人员流动大、未培训就上岗，作业设备无过程管理，风险管控靠自律。</p>
+              </article>
+              <article class="pain-card">
+                <div>
+                  <span class="pain-index">05</span>
+                  <h3>验收缺失、隐患遗留</h3>
+                </div>
+                <p>项目结束不会验收，为运营阶段设计出「隐患」；没有承包商评价，垃圾承包商屡次中标。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="diagnosis">所以，这门课不是在给承包商提要求，而是在给管理者一套全生命周期方法：先看清系统硬伤，再按启动、准备、执行、收尾四阶段把每一环做扎实——准备阶段做扎实，执行阶段管理难度大幅降低。</div>
+        </div>
+    </section>
+
+    <section class="formula-band" id="logic">
+      <div class="container">
+        <div class="section-head">
+          <div class="label" style="color:#fbe3d0">课程核心逻辑</div>
+          <h2>承包商安全管理 = 四阶段 × 十六项对症，从选对到培养伙伴</h2>
+          <p class="section-desc" style="color:rgba(255,255,255,.78)">把承包商管理拆成一条生命周期，每一阶段配清晰的流程与工具：启动选对人、准备做扎实、执行管住现场、收尾验好评价。</p>
+        </div>
+
+        <div class="formula" aria-label="承包商管理等于项目启动加项目准备加项目执行加项目收尾">
+          <span>承包商管理</span>
+          <span class="operator">=</span>
+          <span class="chip">启动</span>
+          <span class="operator">→</span>
+          <span class="chip">准备</span>
+          <span class="operator">→</span>
+          <span class="chip">执行</span>
+          <span class="operator">→</span>
+          <span class="chip">收尾</span>
+        </div>
+
+        <p class="formula-note">把承包商从进场到退场当成一个完整项目来管，而不是散点式的「查一下、盯一下」。启动阶段选对承包商（安全需求 + 资质审查 + 厘清责任）；准备阶段把风险辨识、技术交底、人员培训、设备检查做扎实；执行阶段与业务部门配合，用许可、监督、沟通管住现场风险；收尾阶段做好安全标准化验收与承包商评价，为下一轮选商积累依据。十六项痛点逐一对症，管理有抓手、可落地。</p>
+
+        <div class="method-grid">
+          <article class="method-card">
+            <h3>启动 <span>选对人</span></h3>
+            <p>提出明确安全需求，审查承包商资质与能力，签订安全协议厘清双方责任。</p>
+            <strong>产出：安全需求 + 资质审查 + 安全协议</strong>
+          </article>
+          <article class="method-card">
+            <h3>准备 <span>做扎实</span></h3>
+            <p>成立项目团队、系统性风险辨识与管控、人员与设备管理、精准培训与安全交底。</p>
+            <strong>产出：风险辨识 + 技术交底 + 人员设备检查</strong>
+          </article>
+          <article class="method-card">
+            <h3>执行 <span>管现场</span></h3>
+            <p>作业过程管理、项目过程管控，与业务部门配合，用许可与监督管住现场风险。</p>
+            <strong>产出：作业许可 + 过程管控 + 协同监督</strong>
+          </article>
+          <article class="method-card">
+            <h3>收尾 <span>验与评</span></h3>
+            <p>安全标准化验收 + 承包商评价，为运营阶段不留隐患，为下一轮选商留依据。</p>
+            <strong>产出：安全验收 + 承包商评价 + 长期伙伴</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="course">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课程框架</div>
+          <h2>从项目启动到收尾，一条完整的承包商管理路径</h2>
+          <p class="section-desc">课程按全生命周期推进：先看清承包商关系与管理本质，再按启动、准备、执行、收尾四阶段逐环拆解，每一阶段都有流程说明、阶段本质与实操要点。</p>
+        </div>
+
+        <div class="module-lab">
+          <article class="module-card">
+            <div class="module-top">
+              <small>阶段 1 · 项目启动</small>
+              <h3>选对承包商，从源头把关</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>招标时无安全需求、无资质审查，老板安排的无资质承包商也能进场。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>安全需求、资质与能力审查、安全协议厘清责任；安全投入比例（优秀企业＞5%）。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>识别该阶段管理过程中至少 3 个痛点，小组讨论。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>安全需求清单、资质审查要点、安全协议要点。</p>
+                </div>
+              </div>
+          </article>
+
+          <article class="module-card">
+            <div class="module-top">
+              <small>阶段 2 · 项目准备</small>
+              <h3>做扎实，执行才有底气</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>交底走过场、人员未培训就上岗、设备未经检查，进场即埋隐患。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>成立项目团队、系统性风险辨识、技术交底、人员培训、设备物资检查验收。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>针对真实项目做风险辨识与技术交底设计。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>风险辨识清单、技术交底模板、人员设备检查表。</p>
+                </div>
+              </div>
+          </article>
+
+          <article class="module-card">
+            <div class="module-top">
+              <small>阶段 3 · 项目执行</small>
+              <h3>与业务配合，管住现场风险</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>危险作业未批先做、作业中监管靠自律、现场管控措施失效。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>作业过程管理、项目过程管控、与业务部门协同监督、作业许可与风险挂钩。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>梳理本企业作业过程中的典型违规与管控难点。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>作业过程管控清单、协同监督要点。</p>
+                </div>
+              </div>
+          </article>
+
+          <article class="module-card">
+            <div class="module-top">
+              <small>阶段 4 · 项目收尾</small>
+              <h3>验收与评价，闭环不留隐患</h3>
+            </div>
+              <div class="module-body">
+                <div class="module-block">
+                  <h4>要解决的真问题</h4>
+                  <p>项目结束不会验收，为运营阶段设计出「隐患」；垃圾承包商屡次中标。</p>
+                </div>
+                <div class="module-block">
+                  <h4>关键知识点</h4>
+                  <p>安全标准化验收、承包商评价、黑名单机制、选择长期合作承包商。</p>
+                </div>
+                <div class="module-block">
+                  <h4>课堂练习</h4>
+                  <p>设计本企业项目验收标准与承包商评价表。</p>
+                </div>
+                <div class="module-block">
+                  <h4>带走产出</h4>
+                  <p>验收标准、承包商评价表、黑名单机制草案。</p>
+                </div>
+              </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container">
+        <div class="belief-band">
+          <p>这门课不是在教你把承包商管得更严，而是在教你做业务伙伴——站在企业运营角度得到领导信任，站在业务部门角度得到尊重，把承包商培养成长期合作伙伴。</p>
+          <strong>甲方会花钱、有好的团队和流程，才能找好乙方、有好的标准，和乙方真正合作——把承包商当伙伴，而不是对立面。</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课堂怎么练</div>
+          <h2>不是被动听课，而是找茬、讨论、设计、带走方案</h2>
+          <p class="section-desc">课程围绕四阶段十六项痛点设计练习，用案例找茬、分组讨论、现场设计，让学员把本企业的真实承包商管理问题放进课堂。</p>
+        </div>
+
+        <div class="learning-chain" aria-label="课程教学设计流程">
+          <div class="chain-step">
+            <b>1</b>
+            <h3>破冰引入</h3>
+            <p>A4 折格自我介绍，引出福格行为模型。</p>
+          </div>
+          <div class="chain-step">
+            <b>2</b>
+            <h3>认知纠偏</h3>
+            <p>纠正常见错误认知：出事故谁负责、签协议是否就完事。</p>
+          </div>
+          <div class="chain-step">
+            <b>3</b>
+            <h3>案例找茬</h3>
+            <p>盘丝洞案例找问题，对应管理办法具体条款。</p>
+          </div>
+          <div class="chain-step">
+            <b>4</b>
+            <h3>痛点收集</h3>
+            <p>现场梳理各企业真实承包商管理痛点。</p>
+          </div>
+          <div class="chain-step">
+            <b>5</b>
+            <h3>阶段设计</h3>
+            <p>针对真实项目设计交底、验收、评价方案。</p>
+          </div>
+          <div class="chain-step">
+            <b>6</b>
+            <h3>带走方法</h3>
+            <p>带着自家企业可落地的管理工具离课。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课堂活动证据墙</div>
+          <h2>用活动证明：学员是在找茬、设计、判断，不是在被动听课</h2>
+        </div>
+        <div class="activity-wall">
+          <article class="activity-card">
+            <small>破冰</small>
+            <h3>A4 折格自我介绍</h3>
+            <p>四格填姓名、出生、状态、愿望，引出福格行为模型，认识彼此。</p>
+          </article>
+          <article class="activity-card">
+            <small>纠偏</small>
+            <h3>认知误区大讨论</h3>
+            <p>「施工单位出事故负全责？」「签协议就完事？」——先纠正三个常见误区。</p>
+          </article>
+          <article class="activity-card">
+            <small>找茬</small>
+            <h3>盘丝洞案例找茬</h3>
+            <p>唐僧外包清理蜘蛛网，找出安全漏洞并对应管理办法条款。</p>
+          </article>
+          <article class="activity-card">
+            <small>诊断</small>
+            <h3>痛点现场收集</h3>
+            <p>现场梳理各企业真实痛点：交底无效、检查太虚、审批慢、培训缺位。</p>
+          </article>
+          <article class="activity-card">
+            <small>设计</small>
+            <h3>阶段方案设计</h3>
+            <p>针对真实项目设计风险辨识、交底、验收、评价方案。</p>
+          </article>
+          <article class="activity-card">
+            <small>落地</small>
+            <h3>管理工具带走</h3>
+            <p>带着自家企业可落地的清单、模板、评价表离课。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="outcome">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">课程亮点</div>
+          <h2>它和普通承包商管理培训的区别，在于把「管得严」变成「管得对、管得成」</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="tag">全生命周期</span>
+            <h3>四阶段系统管理</h3>
+            <p>启动、准备、执行、收尾，散点管理变成系统闭环。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">十六项对症</span>
+            <h3>痛点逐一对应</h3>
+            <p>四阶段十六项痛点，每个痛点都有对应管理动作。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">业务协同</span>
+            <h3>学会和业务部门配合</h3>
+            <p>选商、辨识、交底、验收全程与业务配合，得到尊重。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">长期伙伴</span>
+            <h3>把承包商培养成伙伴</h3>
+            <p>换位思考、共同解决问题，实现企业与承包商双赢。</p>
+          </article>
+          <article class="feature">
+            <span class="tag">工具带走</span>
+            <h3>不是带走 PPT，而是带走工具</h3>
+            <p>清单、模板、评价表、黑名单机制，回岗即用。</p>
+          </article>
+        </div>
+
+        <div class="proof-strip" aria-label="课程课件证据">
+          <figure>
+            <img src="assets/slide-pain.jpg" alt="承包商管理痛点课件截图">
+            <figcaption>粗放型 / 细致型，两类极端都要避免。</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/slide-ladder.jpg" alt="承包商安全管理阶梯课件截图">
+            <figcaption>从选对承包商到培养长期伙伴。</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/slide-16pain.jpg" alt="管理四阶段十六项痛点课件截图">
+            <figcaption>四阶段十六项痛点逐一对应。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">学完之后，能得到什么</div>
+          <h2>培训结束，企业和管理者都多了一套全生命周期管理方法</h2>
+        </div>
+
+        <div class="gain-group">
+          <div class="gain-title">个人侧收益</div>
+          <div class="deliverables">
+            <article class="deliverable">
+              <h3>找到安全人定位</h3>
+              <p>找到安全人在承包商管理中的定位，做业务伙伴，不做单纯顾问。</p>
+            </article>
+            <article class="deliverable">
+              <h3>得到领导信任</h3>
+              <p>站在企业运营角度做承包商管理，看清事故对企业的影响，争取资源支持。</p>
+            </article>
+            <article class="deliverable">
+              <h3>得到业务尊重</h3>
+              <p>站在业务部门角度做管理，配合选商、辨识、交底、验收，不再是「只会挑刺」。</p>
+            </article>
+            <article class="deliverable">
+              <h3>有效管控风险</h3>
+              <p>与业务部门共同基于风险管控做承包商管理，有效管控过程中的风险。</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="gain-group">
+          <div class="gain-title">企业侧收益</div>
+          <div class="deliverables">
+            <article class="deliverable">
+              <h3>事故大头管住</h3>
+              <p>针对超 63% 由承包商引发的事故，从源头选商到收尾评价全链路管控。</p>
+            </article>
+            <article class="deliverable">
+              <h3>业务连续性保障</h3>
+              <p>承包商事故影响业务连续性、政府信任、股票价格，系统管理守住经营底线。</p>
+            </article>
+            <article class="deliverable">
+              <h3>项目进度不再两难</h3>
+              <p>准备阶段做扎实，执行阶段管理难度降低，安全与进度不再对立。</p>
+            </article>
+            <article class="deliverable">
+              <h3>双赢合作伙伴</h3>
+              <p>把承包商培养为长期合作伙伴，实现企业与承包商的双赢。</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="gain-group">
+          <div class="gain-title">课程交付</div>
+          <div class="deliverables">
+            <article class="deliverable">
+              <h3>实操面授</h3>
+              <p>破冰 + 纠偏 + 案例找茬 + 痛点收集 + 阶段设计，全程动手。</p>
+            </article>
+            <article class="deliverable">
+              <h3>带走管理工具</h3>
+              <p>安全需求清单、技术交底模板、验收标准、承包商评价表、黑名单机制。</p>
+            </article>
+            <article class="deliverable">
+              <h3>四阶段落地清单</h3>
+              <p>启动、准备、执行、收尾四阶段，每阶段有流程、有工具、有抓手。</p>
+            </article>
+            <article class="deliverable">
+              <h3>回岗落地指引</h3>
+              <p>与业务部门配合的选商、辨识、交底、验收、评价全流程方法。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fit-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">适合谁</div>
+          <h2>适合有承包商施工、检维修、工程技术服务的企业</h2>
+        </div>
+        <div class="fit-grid">
+          <article class="fit-card">
+            <h3>有施工类承包商</h3>
+            <p>承接企业工程施工、检维修、工程技术服务的外部单位，需要系统管理。</p>
+          </article>
+          <article class="fit-card">
+            <h3>EHS 管理人员</h3>
+            <p>想管好承包商，又怕管得严被抵触、管得松出事故的两难。</p>
+          </article>
+          <article class="fit-card">
+            <h3>业务/项目管理人员</h3>
+            <p>负责项目进度，需要与 EHS 配合选商、辨识、验收，不再被事故拖累。</p>
+          </article>
+          <article class="fit-card">
+            <h3>承包商事故频发</h3>
+            <p>施工、检维修过程反复出问题，想找到系统原因和对症方法。</p>
+          </article>
+          <article class="fit-card">
+            <h3>想培养长期伙伴</h3>
+            <p>希望与优质承包商建立长期合作，实现企业与承包商双赢。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <h2>想知道这门课如何落到你们的承包商管理上？</h2>
+          <p>可以先用 30 分钟做一次课程前沟通：梳理你们当前最典型的承包商管理问题，判断它断在启动、准备、执行还是收尾，再决定课程如何定制。</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="#contact">预约课程前沟通</a>
+            <a class="btn btn-secondary" href="#course">查看课程框架</a>
+          </div>
+          <div class="contact-card">
+            <img src="assets/qr-wechat-personal.jpg" alt="曹猛微信二维码，扫码预约课程前沟通">
+            <div class="contact-text">
+              <strong>扫码加微信</strong>
+              <span>预约 30 分钟课程前沟通，把你们最典型的承包商问题聊清楚、定方案。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <span>承包商全生命周期安全管理实战课</span>
+        <span>四阶段全生命周期，让承包商管成长期伙伴。</span>
+      </div>
+      <div class="footer-qr">
+        <img src="assets/qr-official-account.jpg" alt="EHS知行公众号二维码，扫码关注">
+        <span>扫码关注 EHS知行</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
